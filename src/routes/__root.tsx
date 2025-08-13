@@ -1,4 +1,4 @@
-import { HeadContent, Outlet, createRootRouteWithContext } from '@tanstack/react-router'
+import { HeadContent, Outlet, createRootRouteWithContext, Link } from '@tanstack/react-router'
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
 import { TanstackDevtools } from '@tanstack/react-devtools'
 import { QueryClient } from '@tanstack/react-query'
@@ -20,7 +20,8 @@ export const Route = createRootRouteWithContext<RouterContext>()({
       }
     ],
   }),
-  component: RootLayout
+  component: RootLayout,
+  notFoundComponent: NotFound,
 })
 
 function RootLayout() {
@@ -42,6 +43,15 @@ function RootLayout() {
           },
         ]}
       />
+    </>
+  )
+}
+
+function NotFound() {
+  return (
+    <>
+      <div>404 - Not Found</div>
+      <Link to="/">Go Home</Link>
     </>
   )
 }
