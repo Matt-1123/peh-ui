@@ -1,17 +1,10 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
 import {queryOptions, useSuspenseQuery} from '@tanstack/react-query'
-import type { Cleanup } from '@/types'
-import api from '@/lib/axios'
-
-const fetchCleanups = async (): Promise<Cleanup[]> => {
-  const res = await api.get('/cleanups');
-
-  return res.data;
-}
+import { fetchCleanups } from '@/api/cleanups'
 
 const cleanupsQueryOptions = () => queryOptions({
   queryKey: ['cleanups'],
-  queryFn: () => fetchCleanups(),
+  queryFn: fetchCleanups,
 })
 
 export const Route = createFileRoute('/cleanups/')({
