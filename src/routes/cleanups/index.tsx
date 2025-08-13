@@ -1,13 +1,12 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
 import {queryOptions, useSuspenseQuery} from '@tanstack/react-query'
-import type { Cleanup } from '../../types'
+import type { Cleanup } from '@/types'
+import api from '@/lib/axios'
 
-const fetchCleanups = async (): Promise<Cleanup> => {
-  const res = await fetch(`/api/cleanups/`);
-  if (!res.ok) {
-    throw new Error('Failed to fetch cleanups');
-  }
-  return res.json();
+const fetchCleanups = async (): Promise<Cleanup[]> => {
+  const res = await api.get('/cleanups');
+
+  return res.data;
 }
 
 const cleanupsQueryOptions = () => queryOptions({
@@ -30,5 +29,17 @@ export const Route = createFileRoute('/cleanups/')({
 })
 
 function CleanupsComponent() {
-  return <div>Hello "/cleanups/"!</div>
+  const {data: cleanups} = useSuspenseQuery(cleanupsQueryOptions())
+  console.log('Cleanups:', cleanups)
+  
+  return <>
+    <div>Hello "/cleanups/"!</div>
+    <ul>
+      {cleanups.map(cleanup => (
+        <li key={cleanup.id}>
+          <Link to='/cleanups/$cleanupId' params={{cleanupId: cleanup.id.toString()}}>{cleanup.title}</Link>
+        </li>
+      ))}
+    </ul>
+  </>
 }
