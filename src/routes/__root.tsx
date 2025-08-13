@@ -2,6 +2,7 @@ import { HeadContent, Outlet, createRootRouteWithContext } from '@tanstack/react
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
 import { TanstackDevtools } from '@tanstack/react-devtools'
 import { QueryClient } from '@tanstack/react-query'
+import Header from '@/components/Header'
 
 type RouterContext = {
   queryClient: QueryClient
@@ -19,10 +20,17 @@ export const Route = createRootRouteWithContext<RouterContext>()({
       }
     ],
   }),
-  component: () => (
+  component: RootLayout
+})
+
+function RootLayout() {
+  return (
     <>
       <HeadContent />
-      <Outlet />
+      <Header />
+      <main>
+        <Outlet />
+      </main>
       <TanstackDevtools
         config={{
           position: 'bottom-left',
@@ -35,5 +43,5 @@ export const Route = createRootRouteWithContext<RouterContext>()({
         ]}
       />
     </>
-  ),
-})
+  )
+}

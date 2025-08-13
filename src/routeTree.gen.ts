@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CleanupsIndexRouteImport } from './routes/cleanups/index'
+import { Route as CleanupsNewIndexRouteImport } from './routes/cleanups/new/index'
 import { Route as CleanupsCleanupIdIndexRouteImport } from './routes/cleanups/$cleanupId/index'
 
 const IndexRoute = IndexRouteImport.update({
@@ -23,6 +24,11 @@ const CleanupsIndexRoute = CleanupsIndexRouteImport.update({
   path: '/cleanups/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CleanupsNewIndexRoute = CleanupsNewIndexRouteImport.update({
+  id: '/cleanups/new/',
+  path: '/cleanups/new/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CleanupsCleanupIdIndexRoute = CleanupsCleanupIdIndexRouteImport.update({
   id: '/cleanups/$cleanupId/',
   path: '/cleanups/$cleanupId/',
@@ -33,30 +39,39 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/cleanups': typeof CleanupsIndexRoute
   '/cleanups/$cleanupId': typeof CleanupsCleanupIdIndexRoute
+  '/cleanups/new': typeof CleanupsNewIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/cleanups': typeof CleanupsIndexRoute
   '/cleanups/$cleanupId': typeof CleanupsCleanupIdIndexRoute
+  '/cleanups/new': typeof CleanupsNewIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/cleanups/': typeof CleanupsIndexRoute
   '/cleanups/$cleanupId/': typeof CleanupsCleanupIdIndexRoute
+  '/cleanups/new/': typeof CleanupsNewIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/cleanups' | '/cleanups/$cleanupId'
+  fullPaths: '/' | '/cleanups' | '/cleanups/$cleanupId' | '/cleanups/new'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/cleanups' | '/cleanups/$cleanupId'
-  id: '__root__' | '/' | '/cleanups/' | '/cleanups/$cleanupId/'
+  to: '/' | '/cleanups' | '/cleanups/$cleanupId' | '/cleanups/new'
+  id:
+    | '__root__'
+    | '/'
+    | '/cleanups/'
+    | '/cleanups/$cleanupId/'
+    | '/cleanups/new/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CleanupsIndexRoute: typeof CleanupsIndexRoute
   CleanupsCleanupIdIndexRoute: typeof CleanupsCleanupIdIndexRoute
+  CleanupsNewIndexRoute: typeof CleanupsNewIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -75,6 +90,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CleanupsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/cleanups/new/': {
+      id: '/cleanups/new/'
+      path: '/cleanups/new'
+      fullPath: '/cleanups/new'
+      preLoaderRoute: typeof CleanupsNewIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/cleanups/$cleanupId/': {
       id: '/cleanups/$cleanupId/'
       path: '/cleanups/$cleanupId'
@@ -89,6 +111,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CleanupsIndexRoute: CleanupsIndexRoute,
   CleanupsCleanupIdIndexRoute: CleanupsCleanupIdIndexRoute,
+  CleanupsNewIndexRoute: CleanupsNewIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
