@@ -15,14 +15,17 @@ export const Route = createFileRoute('/cleanups/')({
       }
     ],
   }),
-  component: CleanupsComponent,
+  component: CleanupsPage,
   loader: async ({ context: { queryClient } }) => {
     return queryClient.ensureQueryData(cleanupsQueryOptions())
   }
 })
 
-function CleanupsComponent() {
-  const {data: cleanups} = useSuspenseQuery(cleanupsQueryOptions())
+function CleanupsPage() {
+  const { data } = useSuspenseQuery(cleanupsQueryOptions())
+  const cleanups = [...data].sort(
+    (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+  )
   console.log('Cleanups:', cleanups)
   
   return <>

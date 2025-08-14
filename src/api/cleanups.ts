@@ -12,3 +12,21 @@ export const fetchCleanup = async (cleanupId: string): Promise<Cleanup> => {
 
   return res.data;
 }
+
+export const createCleanup = async (newCleanup: {
+  title: string;
+  date: string;
+  description?: string; 
+  location: string;
+  groupSize: number;
+  environmentType: string;
+  totalItemsCollected?: number | null;
+  totalBagsCollected?: number | null;
+}): Promise<Cleanup> => {
+  const res = await api.post('/cleanups', {
+    ...newCleanup,
+    createdAt: new Date().toISOString(),
+  }); 
+
+  return res.data;
+}

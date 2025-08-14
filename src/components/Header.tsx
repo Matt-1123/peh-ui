@@ -1,16 +1,20 @@
 import { Link } from '@tanstack/react-router';
+import logo from '../assets/logos/logo-project-earth-health.png';
 
 const Header = () => {
   return (
-    <header style={{ display: 'flex', justifyContent: 'space-between', padding: '1rem', backgroundColor: '#25803fff' }}>
-      <div>
-        <div >
-          <Link to='/' >
-            <h1>Project Earth Health</h1>
+    <header className="bg-primary--dark pt">
+      <div className="container navbar grid-2">
+        <Link to="/">
+          <img src={logo} alt="Project Earth Health" style={{ width: "auto", height: "48px" }} />
+        </Link>
+        <div className="navbar-right">
+          <Link to="/">
+            Home
           </Link>
-        </div>
-
-        <nav>
+          <Link to="/about">
+            About
+          </Link>
           <Link
             to='/cleanups'
           >
@@ -21,7 +25,11 @@ const Header = () => {
           >
             + New Cleanup
           </Link>
-        </nav>
+          <Link to="/profile">
+            My Profile
+          </Link>
+          
+        </div>
       </div>
     </header>
   );
