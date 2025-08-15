@@ -16,13 +16,15 @@ export const Route = createFileRoute('/')({
 
 function HomePage() {
   const { data: cleanups } = useSuspenseQuery(cleanupsQueryOptions);
-  const latest = cleanups.slice(0, 3);
+  const latestCleanups = [...cleanups]
+    .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+    .slice(0, 3);
 
   return (
     <>
       <h1>Project Earth Health</h1>
       <ul>
-        {latest.map(cleanup => (
+        {latestCleanups.map(cleanup => (
           <li key={cleanup.id}>
             <Link to='/cleanups/$cleanupId' params={{cleanupId: cleanup.id.toString()}}>{cleanup.title}</Link>
           </li>

@@ -30,3 +30,7 @@ export const createCleanup = async (newCleanup: {
 
   return res.data;
 }
+
+export const deleteCleanup = async (cleanupId: string): Promise<void> => {
+  await api.delete(`/cleanups/${cleanupId}`);
+};
