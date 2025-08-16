@@ -78,10 +78,10 @@
       "date": "2025-08-12",
       "description": "test",
       "location": "d",
-      "groupSize": 1,
-      "environmentType": "park",
-      "totalItemsCollected": 3,
-      "totalBagsCollected": 3,
+      "group_size": 1,
+      "env_type": "park",
+      "total_items": 3,
+      "total_bags": 3,
       "createdAt": "2025-08-14T17:59:41.600Z"
     },
     {
@@ -90,10 +90,10 @@
       "date": "2025-08-15",
       "description": "3ss",
       "location": "Hackett Blvd, Albany, NY USA",
-      "groupSize": 1,
-      "environmentType": "path",
-      "totalItemsCollected": null,
-      "totalBagsCollected": 1,
+      "group_size": 1,
+      "env_type": "path",
+      "total_items": null,
+      "total_bags": 1,
       "createdAt": "2025-08-15T19:39:04.777Z"
     }
   ]

@@ -1,81 +1,68 @@
-import { createFileRoute, useNavigate } from '@tanstack/react-router'
-import type { Cleanup } from '@/types';
-import { useState, useRef, useEffect } from 'react';
-import {useMutation} from '@tanstack/react-query';
-import Select from "react-select";
-import { toast } from 'react-toastify';
-import axios from 'axios';
-import { createCleanup } from '@/api/cleanups';
+import { createFileRoute, useNavigate, Link } from '@tanstack/react-router'
+import {useState} from 'react';
+import {
+  queryOptions,
+  useSuspenseQuery,
+  useMutation,
+} from '@tanstack/react-query';
+import { fetchCleanup, deleteCleanup } from '@/api/cleanups';
 
-export const Route = createFileRoute('/cleanups/new/')({
-  component: NewCleanupPage,
-})
-
-function NewCleanupPage() {
-  const navigate = useNavigate();
-  
-  const [title, setTitle] = useState('');
-  const [date, setDate] = useState('');
-  const [description, setDescription] = useState('');
-  const [location, setLocation] = useState('');
-  const [groupSize, setGroupSize] = useState(1);
-  const [environmentType, setEnvironmentType] = useState('');
-  const [totalItemsCollected, setTotalItemsCollected] = useState(null);
-  const [totalBagsCollected, setTotalBagsCollected] = useState(null);
-  
-  // useEffect(() => {
-  //   // Focus the title input when the component mounts
-  //   if(inputRef.current) {
-  //       inputRef.current.focus();
-  //   }
-  // }, []);
-    
-  // const inputRef = useRef(null);
-
-  const { mutateAsync, isPending } = useMutation({
-    mutationFn: createCleanup,
-    onSuccess: () => {
-      navigate({to: '/cleanups'});
-      toast.success('Cleanup created successfully!');
-    }
+const cleanupQueryOptions = (cleanupId: string) =>
+  queryOptions({
+    queryKey: ['cleanup', cleanupId],
+    queryFn: () => fetchCleanup(cleanupId),
   });
 
-  const environmentTypeOptions = [
-    { value: "", label: "Select an environment type", disabled: true },
-    { value: "path", label: "Path" },
-    { value: "park", label: "Park" },
-    { value: "beach", label: "Beach" },
-    { value: "other", label: "Other" },
-  ];
+export const Route = createFileRoute('/cleanups/$cleanupId/edit')({
+  component: CleanupEditPage,
+  loader: async ({ params, context: { queryClient } }) => {
+    return queryClient.ensureQueryData(cleanupQueryOptions(params.cleanupId));
+  },
+})
 
-  const submitForm = async (e: React.FormEvent) => {
-    e.preventDefault();
+function CleanupEditPage() {
+  const { cleanupId } = Route.useParams();
+  const { data: cleanup } = useSuspenseQuery(cleanupQueryOptions(cleanupId));
 
-    if (!title || !date || !location || !environmentType) {
-      toast.error('Please fill in all required fields.');
-      return;
+  console.log(cleanup)
+
+  const [title, setTitle] = useState(cleanup.title);
+  const [date, setDate] = useState(cleanup.date);
+  const [description, setDescription] = useState(cleanup.description);
+  const [location, setLocation] = useState(cleanup.location);
+  const [groupSize, setGroupSize] = useState(cleanup.group_size);
+  const [environmentType, setEnvironmentType] = useState(cleanup.env_type);
+  const [totalItemsCollected, setTotalItemsCollected] = useState(cleanup.total_items);
+  const [totalBagsCollected, setTotalBagsCollected] = useState(cleanup.total_bags);
+
+  const navigate = useNavigate();
+  
+  const { mutateAsync: deleteMutate, isPending } = useMutation({
+    mutationFn: () => deleteCleanup(cleanupId),
+    onSuccess: () => {
+      navigate({ to: '/cleanups' });
+    },
+  });
+
+  const handleDelete = async () => {
+    const confirmDelete = window.confirm(
+      'Are you sure you want to delete this cleanup?'
+    );
+
+    if (confirmDelete) {
+      await deleteMutate();
     }
-
-    try {
-      await mutateAsync({
-        title,
-        date,
-        description,
-        location,
-        group_size: parseInt(groupSize.toString()),
-        env_type: environmentType,
-        total_items: totalItemsCollected ? parseInt(totalItemsCollected) : null,
-        total_bags: totalBagsCollected ? parseInt(totalBagsCollected) : null,
-      });
-    } catch (error) {
-      console.error('Error creating cleanup:', error);
-      toast.error('Failed to create cleanup. Please try again.');
-    }
-  }
-
-  return (
-    <form className="container-narrow bg-dark" onSubmit={submitForm}>
-      <h2 className="text-primary font-lg">Cleanup Action</h2>
+  };
+  
+  return (<>
+    <Link
+      to='/cleanups/$cleanupId'
+      params={{ cleanupId }}
+    >
+      ← Back To Cleanup
+    </Link>
+    <form className="container-narrow bg-dark" >
+      <h1 className="text-primary font-lg">Edit Cleanup</h1>
       
       <div className="form-group">
           <label htmlFor="title">Title*</label>
@@ -130,7 +117,7 @@ function NewCleanupPage() {
       <div className="form-group grid-2">
           <div>
               <label htmlFor="environment-type">Environment Type</label>
-              <Select
+              {/* <Select
                   styles={customStyles}
                   // defaultInputValue={}
                   onChange={(selectedOption) => {
@@ -139,13 +126,19 @@ function NewCleanupPage() {
                   options={environmentTypeOptions}
                   placeholder="Choose an environment type"
                   required={true}
-              />
+              /> */}
+              <select name="environment-type" value={environmentType} onChange={(e) => setEnvironmentType(e.target.value)}>
+                <option value="">Select an option</option>
+                <option value="path">Path</option>
+                <option value="park">Park</option>
+                <option value="beach">Beach</option>
+                <option value="other">Other</option>
+              </select>
           </div>
           <div>
               <label htmlFor="groupSize">Group Size</label>
               <input
                   id="groupSize"
-                  style={styles.number}
                   type="number"
                   name="groupSize"
                   value={groupSize}
@@ -161,10 +154,9 @@ function NewCleanupPage() {
               <label htmlFor="totalItemsCollected">Total Items Collected</label>
               <input
                   id="totalItemsCollected"
-                  style={styles.number}
                   type="number"
                   name="totalItemsCollected"
-                  // value={totalItemsCollected}
+                  value={totalItemsCollected}
                   onChange={(e) => setTotalItemsCollected(e.target.value)}
                   min="0"
                   max="99999"
@@ -174,10 +166,9 @@ function NewCleanupPage() {
               <label htmlFor="groupSize">Total Bags Collected</label>
               <input
                   id="totalBagsCollected"
-                  style={styles.number}
                   type="number"
                   name="totalBagsCollected"
-                  // value={totalBagsCollected}
+                  value={totalBagsCollected}
                   onChange={(e) => setTotalBagsCollected(e.target.value)}
                   min="0"
                   max="999"
@@ -188,7 +179,7 @@ function NewCleanupPage() {
       <div>
           <input
               type="submit"
-              value="Submit"
+              value="Update Cleanup"
               disabled={isPending}
               className="btn btn-primary--dark btn-block"
           />
@@ -196,20 +187,6 @@ function NewCleanupPage() {
 
       <p className="font-sm">* required</p>
     </form>
-  )
+  </>)
 }
 
-const customStyles = {
-    option: (provided, state) => ({
-        ...provided,
-        color: "#000",
-    }),
-}
-
-const styles = {
-  number: {
-    display: "inherit",
-    padding: "8px 4px",
-    minWidth: "120px"
-  }
-};

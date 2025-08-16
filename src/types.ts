@@ -2,6 +2,7 @@ export type Cleanup = {
   id: string;
   title: string;
   description: string;
+  date: string;
   createdAt: string;
   user: string;
   location: string;
