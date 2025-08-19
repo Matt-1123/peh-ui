@@ -117,16 +117,6 @@ function CleanupEditPage() {
       <div className="form-group grid-2">
           <div>
               <label htmlFor="environment-type">Environment Type</label>
-              {/* <Select
-                  styles={customStyles}
-                  // defaultInputValue={}
-                  onChange={(selectedOption) => {
-                      setEnvironmentType(selectedOption.value);
-                  }}
-                  options={environmentTypeOptions}
-                  placeholder="Choose an environment type"
-                  required={true}
-              /> */}
               <select name="environment-type" value={environmentType} onChange={(e) => setEnvironmentType(e.target.value)}>
                 <option value="">Select an option</option>
                 <option value="path">Path</option>
@@ -186,6 +176,14 @@ function CleanupEditPage() {
               disabled={isPending}
               className="btn btn-primary--dark btn-block"
           />
+      </div>
+      <div>
+          <button
+              type="button"
+              onClick={handleDelete}
+              disabled={isPending}
+              className="btn btn-danger btn-block"
+          >{ isPending ? 'Deleting...' : 'Delete' }</button>
       </div>
 
       <p className="font-sm">* required</p>

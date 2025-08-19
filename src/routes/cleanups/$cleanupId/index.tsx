@@ -1,5 +1,4 @@
-import { createFileRoute, Link } from '@tanstack/react-router'
-import { useNavigate } from '@tanstack/react-router'
+import { createFileRoute, Link, useNavigate } from '@tanstack/react-router'
 import {queryOptions, useSuspenseQuery, useMutation} from '@tanstack/react-query'
 import { fetchCleanup, deleteCleanup } from '@/api/cleanups'
 import { FaEdit, FaTrash } from 'react-icons/fa'
