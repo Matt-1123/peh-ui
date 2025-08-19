@@ -5,7 +5,7 @@ import {
   useSuspenseQuery,
   useMutation,
 } from '@tanstack/react-query';
-import { fetchCleanup, deleteCleanup } from '@/api/cleanups';
+import { fetchCleanup, deleteCleanup, updateCleanup } from '@/api/cleanups';
 
 const cleanupQueryOptions = (cleanupId: string) =>
   queryOptions({
@@ -37,7 +37,7 @@ function CleanupEditPage() {
 
   const navigate = useNavigate();
   
-  const { mutateAsync: deleteMutate, isPending } = useMutation({
+  const { mutateAsync: deleteMutate, isPending: isPendingDelete } = useMutation({
     mutationFn: () => deleteCleanup(cleanupId),
     onSuccess: () => {
       navigate({ to: '/cleanups' });
@@ -53,6 +53,28 @@ function CleanupEditPage() {
       await deleteMutate();
     }
   };
+
+  const { mutateAsync: editMutate } = useMutation({
+    mutationFn: () =>
+      updateCleanup(cleanupId, {
+        title,
+        date,
+        description,
+        location,
+        group_size: parseInt(groupSize.toString()),
+        env_type: environmentType,
+        total_items: totalItemsCollected ? parseInt(totalItemsCollected) : null,
+        total_bags: totalBagsCollected ? parseInt(totalBagsCollected) : null,
+      }),
+    onSuccess: () => {
+      navigate({ to: '/cleanups/$cleanupId', params: { cleanupId } });
+    },
+  });
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    await editMutate();
+  };
   
   return (<>
     <Link
@@ -61,7 +83,7 @@ function CleanupEditPage() {
     >
       ← Back To Cleanup
     </Link>
-    <form className="container-narrow bg-dark" >
+    <form onSubmit={handleSubmit} className="container-narrow bg-dark" >
       <h1 className="text-primary font-lg">Edit Cleanup</h1>
       
       <div className="form-group">
@@ -173,7 +195,7 @@ function CleanupEditPage() {
           <input
               type="submit"
               value="Update Cleanup"
-              disabled={isPending}
+              disabled={isPendingDelete}
               className="btn btn-primary--dark btn-block"
           />
       </div>
@@ -181,9 +203,9 @@ function CleanupEditPage() {
           <button
               type="button"
               onClick={handleDelete}
-              disabled={isPending}
+              disabled={isPendingDelete}
               className="btn btn-danger btn-block"
-          >{ isPending ? 'Deleting...' : 'Delete' }</button>
+          >{ isPendingDelete ? 'Deleting...' : 'Delete' }</button>
       </div>
 
       <p className="font-sm">* required</p>

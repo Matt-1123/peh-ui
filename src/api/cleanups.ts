@@ -34,3 +34,23 @@ export const createCleanup = async (newCleanup: {
 export const deleteCleanup = async (cleanupId: string): Promise<void> => {
   await api.delete(`/cleanups/${cleanupId}`);
 };
+
+export const updateCleanup = async (
+  cleanupId: string,
+  updatedData: {
+    title: string;
+    date: string;
+    description?: string; 
+    location: string;
+    groupSize: number;
+    environmentType: string;
+    totalItemsCollected?: number | null;
+    totalBagsCollected?: number | null;
+  }
+): Promise<Cleanup> => {
+  const res = await api.put(`/cleanups/${cleanupId}`, {
+    ...updatedData,
+    updatedAt: new Date().toISOString(),
+  });
+  return res.data;
+};

@@ -10,4 +10,5 @@ export type Cleanup = {
   env_type: string;
   total_items: number;
   total_bags: number;
+  updatedAt: string;
 };
