@@ -140,6 +140,7 @@ function CleanupEditPage() {
               <input
                   id="groupSize"
                   type="number"
+                  style={styles.number}
                   name="groupSize"
                   value={groupSize}
                   onChange={(e) => setGroupSize(e.target.value)}
@@ -155,6 +156,7 @@ function CleanupEditPage() {
               <input
                   id="totalItemsCollected"
                   type="number"
+                  style={styles.number}
                   name="totalItemsCollected"
                   value={totalItemsCollected}
                   onChange={(e) => setTotalItemsCollected(e.target.value)}
@@ -167,6 +169,7 @@ function CleanupEditPage() {
               <input
                   id="totalBagsCollected"
                   type="number"
+                  style={styles.number}
                   name="totalBagsCollected"
                   value={totalBagsCollected}
                   onChange={(e) => setTotalBagsCollected(e.target.value)}
@@ -190,3 +193,10 @@ function CleanupEditPage() {
   </>)
 }
 
+const styles = {
+  number: {
+    display: "inherit",
+    padding: "8px 4px",
+    minWidth: "120px"
+  }
+};
