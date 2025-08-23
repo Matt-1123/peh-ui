@@ -9,11 +9,23 @@ export const fetchCleanups = async (): Promise<Cleanup[]> => {
 
 export const fetchCleanup = async (cleanupId: string): Promise<Cleanup> => {
   const res = await api.get(`/cleanups/${cleanupId}`);
-
+  console.log('fetch cleanup ', cleanupId, JSON.stringify(res.data))
   return res.data;
 }
 
 export const createCleanup = async (newCleanup: {
+  // title: string;
+  // date: string;
+  // description?: string; 
+  // location: string;
+  // group_size: number;
+  // // environmentType: string;
+  // env_type: string;
+  // // totalItemsCollected?: number | null;
+  // total_items?: number | null;
+  // // totalBagsCollected?: number | null;
+  // total_bags?: number | null;
+
   title: string;
   date: string;
   description?: string; 
@@ -23,10 +35,17 @@ export const createCleanup = async (newCleanup: {
   totalItemsCollected?: number | null;
   totalBagsCollected?: number | null;
 }): Promise<Cleanup> => {
+  let jsDate = new Date(); // Current date and time
+  let isoString = jsDate.toISOString(); 
+  let mysqlDateTime = isoString.replace('T', ' ').slice(0, 19);
+  
   const res = await api.post('/cleanups', {
     ...newCleanup,
-    createdAt: new Date().toISOString(),
+    createdAt: mysqlDateTime
   }); 
+
+  console.log('cleanup: ', res.data)
+  console.log('post request to /cleanups complete')
 
   return res.data;
 }
@@ -48,9 +67,13 @@ export const updateCleanup = async (
     totalBagsCollected?: number | null;
   }
 ): Promise<Cleanup> => {
+  let jsDate = new Date(); // Current date and time
+  let isoString = jsDate.toISOString(); 
+  let mysqlDateTime = isoString.replace('T', ' ').slice(0, 19);
+  
   const res = await api.put(`/cleanups/${cleanupId}`, {
     ...updatedData,
-    updatedAt: new Date().toISOString(),
+    updatedAt: mysqlDateTime
   });
   return res.data;
 };

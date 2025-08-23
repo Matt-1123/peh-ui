@@ -4,7 +4,6 @@ import { useState, useRef, useEffect } from 'react';
 import {useMutation} from '@tanstack/react-query';
 import Select from "react-select";
 import { toast } from 'react-toastify';
-import axios from 'axios';
 import { createCleanup } from '@/api/cleanups';
 
 export const Route = createFileRoute('/cleanups/new/')({
@@ -37,6 +36,7 @@ function NewCleanupPage() {
     onSuccess: () => {
       navigate({to: '/cleanups'});
       toast.success('Cleanup created successfully!');
+      window.alert('Cleanup created successfully')
     }
   });
 
@@ -53,10 +53,24 @@ function NewCleanupPage() {
 
     if (!title || !date || !location || !environmentType) {
       toast.error('Please fill in all required fields.');
+      window.alert('Please fill in all required fields - title, date, location, environment type')
       return;
     }
 
     try {
+      // await mutateAsync({
+      //   title,
+      //   date,
+      //   description: description ? description : '',
+      //   location,
+      //   // group_size: groupSize,
+      //   group_size: parseInt(groupSize.toString()),
+      //   env_type: environmentType,
+      //   // total_items: totalItemsCollected ? totalItemsCollected : null,
+      //   total_items: totalItemsCollected ? parseInt(totalItemsCollected) : null,
+      //   // total_bags: totalBagsCollected ? totalBagsCollected : null,
+      //   total_bags: totalBagsCollected ? parseInt(totalBagsCollected) : null,
+
       await mutateAsync({
         title,
         date,

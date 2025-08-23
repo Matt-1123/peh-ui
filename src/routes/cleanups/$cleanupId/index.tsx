@@ -6,6 +6,8 @@ import { FaEdit, FaTrash } from 'react-icons/fa'
 const cleanupQueryOptions = (cleanupId: string) => queryOptions({
   queryKey: ['cleanup', cleanupId],
   queryFn: () => fetchCleanup(cleanupId),
+  // @ts-ignore
+  select: (data) => data[0]
 })
 
 export const Route = createFileRoute('/cleanups/$cleanupId/')({
@@ -17,10 +19,11 @@ export const Route = createFileRoute('/cleanups/$cleanupId/')({
 
 function CleanupDetailsPage() {
   const { cleanupId } = Route.useParams()
-  const {data: cleanup} = useSuspenseQuery(cleanupQueryOptions(cleanupId))
   
   const navigate = useNavigate();
-
+  
+  const {data: cleanup} = useSuspenseQuery(cleanupQueryOptions(cleanupId))
+  
   const { mutateAsync: deleteMutate, isPending } = useMutation({
     mutationFn: () => deleteCleanup(cleanupId),
     onSuccess: () => {

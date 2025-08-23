@@ -11,6 +11,8 @@ const cleanupQueryOptions = (cleanupId: string) =>
   queryOptions({
     queryKey: ['cleanup', cleanupId],
     queryFn: () => fetchCleanup(cleanupId),
+    // @ts-ignore
+    select: (data) => data[0]
   });
 
 export const Route = createFileRoute('/cleanups/$cleanupId/edit')({
