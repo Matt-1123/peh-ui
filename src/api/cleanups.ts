@@ -66,14 +66,9 @@ export const updateCleanup = async (
     totalItemsCollected?: number | null;
     totalBagsCollected?: number | null;
   }
-): Promise<Cleanup> => {
-  let jsDate = new Date(); // Current date and time
-  let isoString = jsDate.toISOString(); 
-  let mysqlDateTime = isoString.replace('T', ' ').slice(0, 19);
-  
+): Promise<Cleanup> => {  
   const res = await api.put(`/cleanups/${cleanupId}`, {
     ...updatedData,
-    updatedAt: mysqlDateTime
   });
   return res.data;
 };
