@@ -27,9 +27,10 @@ function CleanupEditPage() {
   const { data: cleanup } = useSuspenseQuery(cleanupQueryOptions(cleanupId));
 
   console.log(cleanup)
+  const dateOnly = cleanup.date.slice(0, 10);
 
   const [title, setTitle] = useState(cleanup.title);
-  const [date, setDate] = useState(cleanup.date);
+  const [date, setDate] = useState(dateOnly);
   const [description, setDescription] = useState(cleanup.description);
   const [location, setLocation] = useState(cleanup.location);
   const [groupSize, setGroupSize] = useState(cleanup.group_size);
