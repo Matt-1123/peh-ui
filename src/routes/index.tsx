@@ -5,7 +5,7 @@ import { fetchCleanups } from '@/api/cleanups'
 
 const cleanupsQueryOptions = queryOptions({
   queryKey: ['cleanups', { limit: 3 }],
-  queryFn: fetchCleanups
+  queryFn: () => fetchCleanups(3)
 })
 
 export const Route = createFileRoute('/')({
@@ -16,15 +16,12 @@ export const Route = createFileRoute('/')({
 
 function HomePage() {
   const { data: cleanups } = useSuspenseQuery(cleanupsQueryOptions);
-  const latestCleanups = [...cleanups]
-    .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
-    .slice(0, 3);
 
   return (
     <>
       <h1>Project Earth Health</h1>
       <ul>
-        {latestCleanups.map(cleanup => (
+        {cleanups.map(cleanup => (
           <li key={cleanup.id}>
             <Link to='/cleanups/$cleanupId' params={{cleanupId: cleanup.id.toString()}}>{cleanup.title}</Link>
           </li>

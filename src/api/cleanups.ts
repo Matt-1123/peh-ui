@@ -1,9 +1,10 @@
 import api from "@/lib/axios";
 import type { Cleanup } from "@/types";
 
-export const fetchCleanups = async (): Promise<Cleanup[]> => {
-  const res = await api.get('/cleanups');
-
+export const fetchCleanups = async (limit?:number): Promise<Cleanup[]> => {
+  const res = await api.get('/cleanups', {
+    params: limit ? { _limit: limit } : {}
+  });
   return res.data;
 }
 
@@ -14,18 +15,6 @@ export const fetchCleanup = async (cleanupId: string): Promise<Cleanup> => {
 }
 
 export const createCleanup = async (newCleanup: {
-  // title: string;
-  // date: string;
-  // description?: string; 
-  // location: string;
-  // group_size: number;
-  // // environmentType: string;
-  // env_type: string;
-  // // totalItemsCollected?: number | null;
-  // total_items?: number | null;
-  // // totalBagsCollected?: number | null;
-  // total_bags?: number | null;
-
   title: string;
   date: string;
   description?: string; 

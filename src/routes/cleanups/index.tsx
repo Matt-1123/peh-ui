@@ -4,7 +4,7 @@ import { fetchCleanups } from '@/api/cleanups'
 
 const cleanupsQueryOptions = () => queryOptions({
   queryKey: ['cleanups'],
-  queryFn: fetchCleanups,
+  queryFn: () => fetchCleanups(),
 })
 
 export const Route = createFileRoute('/cleanups/')({
@@ -22,10 +22,10 @@ export const Route = createFileRoute('/cleanups/')({
 })
 
 function CleanupsPage() {
-  const { data } = useSuspenseQuery(cleanupsQueryOptions())
-  const cleanups = [...data].sort(
-    (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-  )
+  const { data: cleanups } = useSuspenseQuery(cleanupsQueryOptions())
+  // const cleanups = [...data].sort(
+  //   (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+  // )
   console.log('Cleanups:', cleanups)
   
   return <>
