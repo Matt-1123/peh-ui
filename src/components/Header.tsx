@@ -12,9 +12,6 @@ const Header = () => {
           <Link to="/">
             Home
           </Link>
-          <Link to="/about">
-            About
-          </Link>
           <Link
             to='/cleanups'
           >
@@ -24,6 +21,9 @@ const Header = () => {
             to='/cleanups/new'
           >
             + New Cleanup
+          </Link>
+          <Link to="/about">
+            About
           </Link>
           <Link to="/profile">
             My Profile

@@ -32,11 +32,11 @@ const CleanupFeedItem = ({ cleanup }) => {
               <FaTrash style={{ color: "#dc3545" }} />
             </Link>
           </button> */}
-          <button style={{ height: "1rem" }}>
+          {/* <button style={{ height: "1rem" }}>
             <FaEllipsisH
               style={{ color: "#555", justifySelf: "end" }}
             />
-          </button>
+          </button> */}
         </div>
       </div>
       <div
