@@ -18,8 +18,9 @@ function HomePage() {
   const { data: cleanups } = useSuspenseQuery(cleanupsQueryOptions);
 
   return (
-    <>
+    <div className="container-narrow">
       <h1>Project Earth Health</h1>
+      <h2>Latest Cleanups</h2>
       <ul>
         {cleanups.map(cleanup => (
           <li key={cleanup.id}>
@@ -28,6 +29,6 @@ function HomePage() {
         ))}
       </ul>
       <Link to='/cleanups'>View all cleanups</Link>
-    </>
+    </div>
   )
 }
