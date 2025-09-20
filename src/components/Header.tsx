@@ -28,6 +28,12 @@ const Header = () => {
           <Link to="/profile">
             My Profile
           </Link>
+          <Link to="/signup">
+            <button className="btn btn-primary">Sign Up</button>
+          </Link>
+          <Link to="/login">
+            <button className="btn">Log In</button>
+          </Link>
           
         </div>
       </div>

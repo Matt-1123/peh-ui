@@ -10,6 +10,8 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as SignupIndexRouteImport } from './routes/signup/index'
+import { Route as LoginIndexRouteImport } from './routes/login/index'
 import { Route as CleanupsIndexRouteImport } from './routes/cleanups/index'
 import { Route as AboutIndexRouteImport } from './routes/about/index'
 import { Route as CleanupsNewIndexRouteImport } from './routes/cleanups/new/index'
@@ -19,6 +21,16 @@ import { Route as CleanupsCleanupIdEditRouteImport } from './routes/cleanups/$cl
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SignupIndexRoute = SignupIndexRouteImport.update({
+  id: '/signup/',
+  path: '/signup/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginIndexRoute = LoginIndexRouteImport.update({
+  id: '/login/',
+  path: '/login/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CleanupsIndexRoute = CleanupsIndexRouteImport.update({
@@ -51,6 +63,8 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutIndexRoute
   '/cleanups': typeof CleanupsIndexRoute
+  '/login': typeof LoginIndexRoute
+  '/signup': typeof SignupIndexRoute
   '/cleanups/$cleanupId/edit': typeof CleanupsCleanupIdEditRoute
   '/cleanups/$cleanupId': typeof CleanupsCleanupIdIndexRoute
   '/cleanups/new': typeof CleanupsNewIndexRoute
@@ -59,6 +73,8 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutIndexRoute
   '/cleanups': typeof CleanupsIndexRoute
+  '/login': typeof LoginIndexRoute
+  '/signup': typeof SignupIndexRoute
   '/cleanups/$cleanupId/edit': typeof CleanupsCleanupIdEditRoute
   '/cleanups/$cleanupId': typeof CleanupsCleanupIdIndexRoute
   '/cleanups/new': typeof CleanupsNewIndexRoute
@@ -68,6 +84,8 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about/': typeof AboutIndexRoute
   '/cleanups/': typeof CleanupsIndexRoute
+  '/login/': typeof LoginIndexRoute
+  '/signup/': typeof SignupIndexRoute
   '/cleanups/$cleanupId/edit': typeof CleanupsCleanupIdEditRoute
   '/cleanups/$cleanupId/': typeof CleanupsCleanupIdIndexRoute
   '/cleanups/new/': typeof CleanupsNewIndexRoute
@@ -78,6 +96,8 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/cleanups'
+    | '/login'
+    | '/signup'
     | '/cleanups/$cleanupId/edit'
     | '/cleanups/$cleanupId'
     | '/cleanups/new'
@@ -86,6 +106,8 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/cleanups'
+    | '/login'
+    | '/signup'
     | '/cleanups/$cleanupId/edit'
     | '/cleanups/$cleanupId'
     | '/cleanups/new'
@@ -94,6 +116,8 @@ export interface FileRouteTypes {
     | '/'
     | '/about/'
     | '/cleanups/'
+    | '/login/'
+    | '/signup/'
     | '/cleanups/$cleanupId/edit'
     | '/cleanups/$cleanupId/'
     | '/cleanups/new/'
@@ -103,6 +127,8 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutIndexRoute: typeof AboutIndexRoute
   CleanupsIndexRoute: typeof CleanupsIndexRoute
+  LoginIndexRoute: typeof LoginIndexRoute
+  SignupIndexRoute: typeof SignupIndexRoute
   CleanupsCleanupIdEditRoute: typeof CleanupsCleanupIdEditRoute
   CleanupsCleanupIdIndexRoute: typeof CleanupsCleanupIdIndexRoute
   CleanupsNewIndexRoute: typeof CleanupsNewIndexRoute
@@ -115,6 +141,20 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/signup/': {
+      id: '/signup/'
+      path: '/signup'
+      fullPath: '/signup'
+      preLoaderRoute: typeof SignupIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login/': {
+      id: '/login/'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/cleanups/': {
@@ -159,6 +199,8 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutIndexRoute: AboutIndexRoute,
   CleanupsIndexRoute: CleanupsIndexRoute,
+  LoginIndexRoute: LoginIndexRoute,
+  SignupIndexRoute: SignupIndexRoute,
   CleanupsCleanupIdEditRoute: CleanupsCleanupIdEditRoute,
   CleanupsCleanupIdIndexRoute: CleanupsCleanupIdIndexRoute,
   CleanupsNewIndexRoute: CleanupsNewIndexRoute,
