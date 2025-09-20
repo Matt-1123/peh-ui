@@ -7,6 +7,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { routeTree } from './routeTree.gen'
 
 import './styles.css'
+import 'react-toastify/dist/ReactToastify.css';
 import reportWebVitals from './reportWebVitals.ts'
 
 const queryClient = new QueryClient({

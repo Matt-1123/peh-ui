@@ -2,6 +2,7 @@ import { HeadContent, Outlet, createRootRouteWithContext, Link } from '@tanstack
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
 import { TanstackDevtools } from '@tanstack/react-devtools'
 import { QueryClient } from '@tanstack/react-query'
+import { ToastContainer } from 'react-toastify';
 import Header from '@/components/Header'
 
 type RouterContext = {
@@ -43,6 +44,7 @@ function RootLayout() {
           },
         ]}
       />
+      <ToastContainer />
     </>
   )
 }
