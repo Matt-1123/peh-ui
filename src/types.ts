@@ -12,3 +12,9 @@ export type Cleanup = {
   total_bags: number;
   updatedAt: string;
 };
+
+export type User = {
+  username: string;
+  email: string;
+  password: string;
+}
