@@ -605,6 +605,33 @@ table th {
   margin-right: 0.6rem;
 }
 
+/* Authentication Pages (Login and Signup) */
+.backgroundImage {
+  background-image: url('./assets/img/auth-background.jpg');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  background-attachment: fixed;
+  height: 100vh;
+  width: 100vw;
+  padding: 2rem 0;
+}
+
+.authForm {
+  width: 80%;
+  max-width: 725px;
+  margin: 0 auto;
+  overflow: hidden;
+  padding: 2rem;
+  border-radius: 20px;
+  background-color: var(--dark-color);
+  opacity: 0.95;
+}
+
+.authForm input {
+  margin-bottom: 1.5rem;
+}
+
 /* Animation (Add After) */
 .item-enter {
   opacity: 0;
