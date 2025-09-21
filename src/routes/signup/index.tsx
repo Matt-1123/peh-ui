@@ -3,6 +3,7 @@ import {useMutation} from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import { useState } from 'react';
 import { registerUser } from '@/api/auth';
+import { AxiosError } from 'axios' 
 
 
 export const Route = createFileRoute('/signup/')({
@@ -20,15 +21,24 @@ function SignupComponent() {
         mutationFn: registerUser,
         onSuccess: (data) => {
             console.log('registerUser data: ', data);
-            // @ts-ignore
-            if(data.code === 'ER_DUP_ENTRY') {
-                console.log('error: ER_DUP_ENTRY. Add a message to the user.')
-                toast.error('An account with this email address already exists.')
-                return;
-            }
             navigate({to: '/cleanups'});
             toast.success('User registration successful!');
-            window.alert('User registered successfully')
+        },
+        onError: (err) => {
+            console.log('registerUser error data: ', err)
+            if (err instanceof AxiosError) {
+                if (err.response?.status === 409) {
+                    if(err.response.data.message === 'Username is taken') {
+                        toast.error('This username is taken.')
+                        return;
+                    } else {
+                        toast.error('An account with this email address already exists.')
+                    }
+                }
+            } else {
+                console.log('Unexpected error', err)
+                toast.error('An error has occurred. Please try again.')
+            }
         }
     });
     

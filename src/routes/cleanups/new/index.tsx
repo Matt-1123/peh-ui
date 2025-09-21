@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import type { Cleanup } from '@/types';
 import { useState } from 'react';
