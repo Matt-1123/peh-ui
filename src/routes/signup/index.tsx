@@ -25,7 +25,6 @@ function SignupComponent() {
             toast.success('User registration successful!');
         },
         onError: (err) => {
-            console.log('registerUser error data: ', err)
             if (err instanceof AxiosError) {
                 if (err.response?.status === 409) {
                     if(err.response.data.message === 'Username is taken') {

@@ -3,6 +3,7 @@ import {useMutation} from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import { useState } from 'react';
 import { loginUser } from '@/api/auth';
+import { AxiosError } from 'axios' 
 
 export const Route = createFileRoute('/login/')({
   component: LoginComponent,
@@ -19,6 +20,17 @@ function LoginComponent() {
         onSuccess: () => {
             navigate({to: '/'});
             toast.success('Login successful!');
+        },
+        onError: (err) => {
+            console.log('loginUser error data: ', err)
+            if (err instanceof AxiosError) {
+                if (err.response?.status === 401) {
+                    toast.error('Invalid credentials. Please try again.')
+                    return;
+                }
+            } else {
+                toast.error('An error has occurred. Please try again.')
+            }
         }
     });
     
