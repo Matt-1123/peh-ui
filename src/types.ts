@@ -4,7 +4,7 @@ export type Cleanup = {
   description: string;
   date: string;
   createdAt: string;
-  user: string;
+  user_id: string;
   location: string;
   group_size: number;
   env_type: string;
