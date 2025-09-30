@@ -21,7 +21,6 @@ function SignupComponent() {
     const { mutateAsync, isPending } = useMutation({
         mutationFn: registerUser,
         onSuccess: (data) => {
-            console.log('data: ', data)
             // @ts-ignore
             setAccessToken(data.accessToken);
             // @ts-ignore

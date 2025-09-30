@@ -3,7 +3,8 @@ import {useMutation} from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import { useState } from 'react';
 import { loginUser } from '@/api/auth';
-import { AxiosError } from 'axios' 
+import { AxiosError } from 'axios';
+import { useAuth } from '@/context/AuthContext';
 
 export const Route = createFileRoute('/login/')({
   component: LoginComponent,
@@ -11,13 +12,18 @@ export const Route = createFileRoute('/login/')({
 
 function LoginComponent() {
     const navigate = useNavigate();
+    const { setAccessToken, setUser } = useAuth();
       
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     
     const { mutateAsync, isPending } = useMutation({
         mutationFn: loginUser,
-        onSuccess: () => {
+        onSuccess: (data) => {
+            // @ts-ignore
+            setAccessToken(data.accessToken);
+            // @ts-ignore
+            setUser(data.user);
             navigate({to: '/'});
             toast.success('Login successful!');
         },
@@ -39,7 +45,6 @@ function LoginComponent() {
 
         if (!email || !password) {
             toast.error('Please fill in all required fields.');
-            window.alert('Please fill in all required fields')
             return;
         }
 
@@ -84,7 +89,7 @@ function LoginComponent() {
             <input
                 type="submit"
                 value="Submit"
-            //   disabled={isPending}
+                disabled={isPending}
                 className="mt-2 btn btn-primary--dark btn-block"
             />
         </div>
