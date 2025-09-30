@@ -17,3 +17,12 @@ export const loginUser = async (returningUser: {
   const res = await api.post('/login', returningUser)
   return res.data; // returns user and access token
 }
+
+export const logoutUser = async () => {
+  try {
+    await api.post('/logout')
+  } catch (err: any) {
+    const message = err.response?.data?.message || 'Failed to logout';
+    throw new Error(message);
+  }
+}
