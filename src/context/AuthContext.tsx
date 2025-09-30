@@ -9,7 +9,7 @@ type AuthContextType = {
     setUser: (user: AuthContextType['user']) => void;
 }
 
-export const AuthContext = createContext<AuthContextType | undefined>(undefined);
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: {children: ReactNode}) => {
     const [accessToken, setAccessToken] = useState<string | null>(null);
