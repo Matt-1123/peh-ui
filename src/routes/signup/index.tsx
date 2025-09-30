@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import { useState } from 'react';
 import { registerUser } from '@/api/auth';
 import { AxiosError } from 'axios' 
-
+import { useAuth } from '@/context/AuthContext';
 
 export const Route = createFileRoute('/signup/')({
   component: SignupComponent,
@@ -12,6 +12,7 @@ export const Route = createFileRoute('/signup/')({
 
 function SignupComponent() {
     const navigate = useNavigate();
+    const { setAccessToken, setUser } = useAuth();
       
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
@@ -20,7 +21,11 @@ function SignupComponent() {
     const { mutateAsync, isPending } = useMutation({
         mutationFn: registerUser,
         onSuccess: (data) => {
-            console.log('registerUser data: ', data);
+            console.log('data: ', data)
+            // @ts-ignore
+            setAccessToken(data.accessToken);
+            // @ts-ignore
+            setUser(data.user);
             navigate({to: '/cleanups'});
             toast.success('User registration successful!');
         },
@@ -46,13 +51,11 @@ function SignupComponent() {
 
         if (!email || !password) {
             toast.error('Please fill in all required fields.');
-            window.alert('Please fill in all required fields')
             return;
         }
 
         if (password.length < 8) {
             toast.error('Password must be at least 8 characters.');
-            window.alert('Password must be at least 8 characters.')
             return;
         }
 
@@ -63,7 +66,7 @@ function SignupComponent() {
                 username
             });
         } catch (error) {
-            console.log('Error: ', error)
+            console.error('Error: ', error)
         }
     }
   
@@ -107,7 +110,7 @@ function SignupComponent() {
             <input
                 type="submit"
                 value="Submit"
-            //   disabled={isPending}
+                disabled={isPending}
                 className="mt-2 btn btn-primary--dark btn-block"
             />
         </div>

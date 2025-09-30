@@ -7,7 +7,7 @@ export const registerUser = async (newUser: {
   password: string; 
 }): Promise<User> => { 
   const res = await api.post('/signup', newUser)
-  return res.data;
+  return res.data; // returns user and access token
 }
 
 export const loginUser = async (returningUser: {
@@ -15,6 +15,5 @@ export const loginUser = async (returningUser: {
   password: string; 
 }): Promise<User> => { 
   const res = await api.post('/login', returningUser)
-  console.log("POST /login res.data: ", JSON.stringify(res.data))
   return res.data;
 }
