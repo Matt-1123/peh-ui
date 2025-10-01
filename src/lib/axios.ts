@@ -3,7 +3,7 @@ import { getStoredAccessToken, setStoredAccessToken } from "./authToken";
 import { refreshAccessToken } from "@/api/auth";
 
 const api = axios.create({
-    baseURL: '/api',
+    baseURL: `${import.meta.env.VITE_PRODUCTION_API_URL}`,
     withCredentials: true,
     headers: {
         'Content-Type': 'application/json',
@@ -29,7 +29,7 @@ api.interceptors.response.use(
         if (
             error.response?.status === 401 &&
             !originalRequest._retry &&
-            !originalRequest.url.includes('/auth/refresh')    
+            !originalRequest.url.includes('/refresh')    
         ) {
             originalRequest._retry = true;
 
