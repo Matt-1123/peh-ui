@@ -3,6 +3,7 @@ import { createFileRoute, Link, useNavigate } from '@tanstack/react-router'
 import {queryOptions, useSuspenseQuery, useMutation} from '@tanstack/react-query'
 import { fetchCleanup, deleteCleanup } from '@/api/cleanups'
 import { FaEdit, FaTrash, FaArrowLeft } from 'react-icons/fa'
+import { useAuth } from '@/context/AuthContext'
 
 const cleanupQueryOptions = (cleanupId: string) => queryOptions({
   queryKey: ['cleanup', cleanupId],
@@ -22,6 +23,8 @@ function CleanupDetailsPage() {
   const { cleanupId } = Route.useParams()
   
   const navigate = useNavigate();
+
+  const { user } = useAuth();
   
   const {data: cleanup} = useSuspenseQuery(cleanupQueryOptions(cleanupId))
   
@@ -72,16 +75,21 @@ function CleanupDetailsPage() {
         <Link to='/' className='back-link'>
           <FaArrowLeft className='mr' /> Back to Home
         </Link>
-        <div>
-          <button className="mr-1">
-            <Link to='/cleanups/$cleanupId/edit' params={{cleanupId}}>
-              <FaEdit style={{ color: "#999" }} /> Edit
-            </Link>
-          </button>
-          <button disabled={ isPending } onClick={handleDelete}>
-            <FaTrash style={{ color: "#dc3545" }} /> { isPending ? 'Deleting...' : 'Delete' }
-          </button>
-        </div>
+        { user && user.id === cleanup.user_id && (
+          <>
+            <div>
+              <button className="mr-1">
+                <Link to='/cleanups/$cleanupId/edit' params={{cleanupId}}>
+                  <FaEdit style={{ color: "#999" }} /> Edit
+                </Link>
+              </button>
+              <button disabled={ isPending } onClick={handleDelete}>
+                <FaTrash style={{ color: "#dc3545" }} /> { isPending ? 'Deleting...' : 'Delete' }
+              </button>
+            </div>
+          </>
+        )}
+        
       </div>
       <div
         className="grid mb"
