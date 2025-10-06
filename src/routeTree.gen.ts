@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as SignupIndexRouteImport } from './routes/signup/index'
+import { Route as ProfileIndexRouteImport } from './routes/profile/index'
 import { Route as LoginIndexRouteImport } from './routes/login/index'
 import { Route as CleanupsIndexRouteImport } from './routes/cleanups/index'
 import { Route as AboutIndexRouteImport } from './routes/about/index'
@@ -26,6 +27,11 @@ const IndexRoute = IndexRouteImport.update({
 const SignupIndexRoute = SignupIndexRouteImport.update({
   id: '/signup/',
   path: '/signup/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProfileIndexRoute = ProfileIndexRouteImport.update({
+  id: '/profile/',
+  path: '/profile/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoginIndexRoute = LoginIndexRouteImport.update({
@@ -64,6 +70,7 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutIndexRoute
   '/cleanups': typeof CleanupsIndexRoute
   '/login': typeof LoginIndexRoute
+  '/profile': typeof ProfileIndexRoute
   '/signup': typeof SignupIndexRoute
   '/cleanups/$cleanupId/edit': typeof CleanupsCleanupIdEditRoute
   '/cleanups/$cleanupId': typeof CleanupsCleanupIdIndexRoute
@@ -74,6 +81,7 @@ export interface FileRoutesByTo {
   '/about': typeof AboutIndexRoute
   '/cleanups': typeof CleanupsIndexRoute
   '/login': typeof LoginIndexRoute
+  '/profile': typeof ProfileIndexRoute
   '/signup': typeof SignupIndexRoute
   '/cleanups/$cleanupId/edit': typeof CleanupsCleanupIdEditRoute
   '/cleanups/$cleanupId': typeof CleanupsCleanupIdIndexRoute
@@ -85,6 +93,7 @@ export interface FileRoutesById {
   '/about/': typeof AboutIndexRoute
   '/cleanups/': typeof CleanupsIndexRoute
   '/login/': typeof LoginIndexRoute
+  '/profile/': typeof ProfileIndexRoute
   '/signup/': typeof SignupIndexRoute
   '/cleanups/$cleanupId/edit': typeof CleanupsCleanupIdEditRoute
   '/cleanups/$cleanupId/': typeof CleanupsCleanupIdIndexRoute
@@ -97,6 +106,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/cleanups'
     | '/login'
+    | '/profile'
     | '/signup'
     | '/cleanups/$cleanupId/edit'
     | '/cleanups/$cleanupId'
@@ -107,6 +117,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/cleanups'
     | '/login'
+    | '/profile'
     | '/signup'
     | '/cleanups/$cleanupId/edit'
     | '/cleanups/$cleanupId'
@@ -117,6 +128,7 @@ export interface FileRouteTypes {
     | '/about/'
     | '/cleanups/'
     | '/login/'
+    | '/profile/'
     | '/signup/'
     | '/cleanups/$cleanupId/edit'
     | '/cleanups/$cleanupId/'
@@ -128,6 +140,7 @@ export interface RootRouteChildren {
   AboutIndexRoute: typeof AboutIndexRoute
   CleanupsIndexRoute: typeof CleanupsIndexRoute
   LoginIndexRoute: typeof LoginIndexRoute
+  ProfileIndexRoute: typeof ProfileIndexRoute
   SignupIndexRoute: typeof SignupIndexRoute
   CleanupsCleanupIdEditRoute: typeof CleanupsCleanupIdEditRoute
   CleanupsCleanupIdIndexRoute: typeof CleanupsCleanupIdIndexRoute
@@ -148,6 +161,13 @@ declare module '@tanstack/react-router' {
       path: '/signup'
       fullPath: '/signup'
       preLoaderRoute: typeof SignupIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/profile/': {
+      id: '/profile/'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof ProfileIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/login/': {
@@ -200,6 +220,7 @@ const rootRouteChildren: RootRouteChildren = {
   AboutIndexRoute: AboutIndexRoute,
   CleanupsIndexRoute: CleanupsIndexRoute,
   LoginIndexRoute: LoginIndexRoute,
+  ProfileIndexRoute: ProfileIndexRoute,
   SignupIndexRoute: SignupIndexRoute,
   CleanupsCleanupIdEditRoute: CleanupsCleanupIdEditRoute,
   CleanupsCleanupIdIndexRoute: CleanupsCleanupIdIndexRoute,
