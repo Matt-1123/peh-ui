@@ -7,6 +7,7 @@ const api = axios.create({
     withCredentials: true,
     headers: {
         'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': import.meta.env.VITE_PRODUCTION_API_URL
     }
 });
 
