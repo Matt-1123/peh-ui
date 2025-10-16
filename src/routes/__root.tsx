@@ -1,6 +1,6 @@
 import { HeadContent, Outlet, createRootRouteWithContext, Link } from '@tanstack/react-router'
-import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
-import { TanstackDevtools } from '@tanstack/react-devtools'
+// import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
+// import { TanstackDevtools } from '@tanstack/react-devtools'
 import { QueryClient } from '@tanstack/react-query'
 import { ToastContainer } from 'react-toastify';
 import Header from '@/components/Header'
@@ -33,7 +33,7 @@ function RootLayout() {
       <main>
         <Outlet />
       </main>
-      <TanstackDevtools
+      {/* <TanstackDevtools
         config={{
           position: 'bottom-left',
         }}
@@ -43,7 +43,7 @@ function RootLayout() {
             render: <TanStackRouterDevtoolsPanel />,
           },
         ]}
-      />
+      /> */}
       <ToastContainer />
     </>
   )
