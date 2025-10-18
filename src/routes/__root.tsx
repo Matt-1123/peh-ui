@@ -4,7 +4,7 @@ import { HeadContent, Outlet, createRootRouteWithContext, Link } from '@tanstack
 import { QueryClient } from '@tanstack/react-query'
 import { ToastContainer } from 'react-toastify';
 import Header from '@/components/Header'
-import { Analytics } from "@vercel/analytics/next"
+import { Analytics } from '@vercel/analytics/react';
 
 type RouterContext = {
   queryClient: QueryClient
