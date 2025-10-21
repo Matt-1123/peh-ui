@@ -632,6 +632,7 @@ table th {
   outline: none;
   border-radius: 1rem;
   background: var(--light-color);
+  transition: all 0.3s ease-out;
 }
 
 .burger-line:nth-child(1) {
@@ -643,6 +644,19 @@ table th {
 }
 .burger-line:nth-child(3) {
     top: 1rem;
+}
+
+.burger-x {
+  transform: rotate(180deg);
+}
+.burger-x .burger-line:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+.burger-x .burger-line:nth-child(2) {
+  opacity: 0;
+}
+.burger-x .burger-line:nth-child(3) {
+  transform: rotate(-45deg) translate(7px, -6px);
 }
 
 .overlay {

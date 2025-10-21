@@ -10,6 +10,7 @@ const Header = () => {
   const { user, setUser, setAccessToken } = useAuth();
 
   const [openSubmenu, setOpenSubmenu] = useState(false);
+  const [openMobileMenu, setOpenMobileMenu] = useState(false)
 
   const handleMouseEnter = () => {
     setOpenSubmenu(true);
@@ -17,6 +18,10 @@ const Header = () => {
 
   const handleMouseLeave = () => {
     setOpenSubmenu(false);
+  }
+
+  const handleBurgerClick = () => {
+    setOpenMobileMenu(!openMobileMenu)
   }
   
   const handleLogout = async () => {
@@ -37,7 +42,7 @@ const Header = () => {
           <img src={logo} alt="Project Earth Health" style={{ width: "auto", height: "48px" }} />
         </Link>
         <div className="navbar-right">
-          <div className="burger" id="burger">
+          <div className={`burger ${openMobileMenu ? 'burger-x' : null}`} id="burger" onClick={handleBurgerClick}>
             <span className="burger-line"></span>
             <span className="burger-line"></span>
             <span className="burger-line"></span>
