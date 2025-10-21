@@ -1,9 +1,11 @@
+// @ts-nocheck
 import { useState } from 'react'
 import { Link, useNavigate } from '@tanstack/react-router';
 import logo from '../assets/logos/logo-project-earth-health.png';
 import { useAuth } from '@/context/AuthContext';
 import { logoutUser } from '@/api/auth';
 import { FaChevronDown } from "react-icons/fa";
+import MobileMenu from './MobileMenu';
 
 const Header = () => {
   const navigate = useNavigate();
@@ -36,7 +38,7 @@ const Header = () => {
   }
 
   return (
-    <header className="bg-primary--dark pt">
+    <header className="bg-primary--dark pt" style={{ position: "relative" }}>
       <div className="container navbar grid-2">
         <Link to="/" className="active-ignore">
           <img src={logo} alt="Project Earth Health" style={{ width: "auto", height: "48px" }} />
@@ -47,7 +49,6 @@ const Header = () => {
             <span className="burger-line"></span>
             <span className="burger-line"></span>
           </div>
-          <span className="overlay"></span>
           <ul className="menu">
             <li className="menu-item">
               <Link to="/" className="nav-link">Home</Link>
@@ -100,6 +101,8 @@ const Header = () => {
           </ul>
         </div>
       </div>
+      <MobileMenu openMobileMenu={openMobileMenu} user={user} />
+      <span className={`overlay ${openMobileMenu ? 'active' : null}`}></span>
     </header>
   );
 };

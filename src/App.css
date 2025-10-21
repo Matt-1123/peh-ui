@@ -30,7 +30,12 @@ button {
 	outline: inherit;
 }
 
+html, body {
+  overflow-x: hidden;
+}
+
 body {
+  position: relative;
   font-family: 'Lato', sans-serif;
   font-size: 1rem;
   line-height: 1.6;
@@ -563,7 +568,7 @@ table th {
   background: var(--light-color);
 }
 
-/* ------------ Navbar ------------*/
+/* ------------ Header ------------*/
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -619,6 +624,7 @@ table th {
   opacity: 0;
   visibility: hidden;
   background: transparent;
+  z-index: 10;
 }
 
 .burger-line {
@@ -665,7 +671,6 @@ table th {
   left: 0;
   height: 100%;
   width: 100%;
-  z-index: 9;
   opacity: 0;
   visibility: hidden;
   transition: all 0.35s ease-in-out;
@@ -676,6 +681,7 @@ table th {
   display: block;
   opacity: 1;
   visibility: visible;
+  z-index: 9;
 }
 
 .nav-link {
@@ -708,6 +714,27 @@ table th {
   display: block;
   margin-top: 0.75rem;
 }
+
+.mobileMenu {
+  display: none;
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+  top: 100%;
+  width: 100%;
+  max-width: 500px;
+  background-color: var(--dark-color);
+  border: 2px solid var(--primary-color--dark);
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+  z-index: 10;
+  transition: all 0.35s ease-in-out;
+}
+
+.mobileMenu li {
+  margin: 0.5rem 0;
+}
   
 @media only screen and (max-width: 992px) {
   .burger, .burger-line {
@@ -718,6 +745,16 @@ table th {
   
   .navbar-right .nav-link {
     display: none;
+  }
+
+  .mobileMenu.closed {
+    right: -100%;
+  }
+
+  .mobileMenu.open {
+    opacity: 1;
+    visibility: visible;
+    right: 0
   }
 }
 
