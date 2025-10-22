@@ -7,7 +7,7 @@ import { useAuth } from '@/context/AuthContext';
 import { logoutUser } from '@/api/auth';
 import { FaChevronDown } from "react-icons/fa";
 
-const MobileMenu = ({ openMobileMenu, user }) => {
+const MobileMenu = ({ openMobileMenu, user, handleLogout }) => {
   return (
     <div className={`mobileMenu ${openMobileMenu ? 'open' : 'closed'}`} >
         <ul>
