@@ -14,7 +14,7 @@ function SignupComponent() {
     const navigate = useNavigate();
     const { setAccessToken, setUser } = useAuth();
       
-    const [username, setUsername] = useState('');
+    const [inputUsername, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     
@@ -58,6 +58,9 @@ function SignupComponent() {
             return;
         }
 
+        // Lowercase username
+        const username = inputUsername.toLowerCase()
+
         try {
             await mutateAsync({
                 email,
@@ -80,7 +83,7 @@ function SignupComponent() {
                 type="text"
                 name="name"
                 placeholder="Enter username"
-                value={username}
+                value={inputUsername}
                 onChange={(e) => setUsername(e.target.value)}
             />
             <label htmlFor="email">Email*</label>
