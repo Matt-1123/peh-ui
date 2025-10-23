@@ -15,8 +15,8 @@ const MobileMenu = ({ openMobileMenu, user, handleLogout }) => {
                 <Link to="/" className="nav-link">Home</Link>
             </li>
             <li>
-                <span className="nav-link">Cleanups <FaChevronDown style={{ verticalAlign: '-0.125em' }} /></span>
-                <ul>
+                <span className="nav-link">Cleanups</span>
+                <ul className='ml-1'>
                     <li>
                         <Link to='/cleanups' activeOptions={{ exact: true }}>All Cleanups</Link>
                     </li>
