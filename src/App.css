@@ -737,6 +737,10 @@ table th {
 }
   
 @media only screen and (max-width: 992px) {
+  .navbar {
+    padding: 0.4rem 0;
+  }
+  
   .burger, .burger-line {
     display: block;
     opacity: 1;
