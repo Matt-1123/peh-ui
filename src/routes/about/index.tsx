@@ -26,5 +26,29 @@ function AboutComponent() {
         meat and cheese free for a week.
       </li>
     </ul>
+
+    <h2>Attributions</h2>
+    <hr />
+    <h3 className="mt-1">Leaf icon images:</h3>
+    <ul>
+      <li>
+        <a href="https://www.flaticon.com/free-icons/oak" title="oak icons">Oak icons created by surang - Flaticon</a>
+      </li>
+      <li>
+        <a href="https://www.flaticon.com/free-icons/autumn" title="autumn icons">Autumn icons created by IconsNova - Flaticon</a>
+      </li>
+      <li>
+        <a href="https://www.flaticon.com/free-icons/linden" title="linden icons">Linden icons created by surang - Flaticon</a>
+      </li>
+      <li>
+        <a href="https://www.flaticon.com/free-icons/leaves" title="leaves icons">Leaves icons created by Icongeek26 - Flaticon</a>
+      </li>
+      <li>
+        <a href="https://www.flaticon.com/free-icons/chestnut" title="chestnut icons">Chestnut icons created by Icongeek26 - Flaticon</a>
+      </li>
+      <li>
+        <a href="https://www.flaticon.com/free-icons/pine" title="pine icons">Pine icons created by kornkun - Flaticon</a>
+      </li>
+    </ul>
   </div>
 }
