@@ -1,10 +1,14 @@
 // @ts-nocheck
 import { Link } from '@tanstack/react-router';
 import { FaEdit, FaTrash, FaEllipsisH } from 'react-icons/fa'
+import { useAuth } from '@/context/AuthContext';
 import dateConverter from '../utils/dateConverter'
+import oakLeaf from '../assets/img/profile-leaf-icons/oak-leaf.png'
 
 const CleanupFeedItem = ({ cleanup }) => {
-  const { id, title, date, userName, description, group_size, duration, location, env_type, total_items, total_bags } = cleanup;
+  const { user } = useAuth();
+  
+  const { id, title, date, description, group_size, duration, location, env_type, total_items, total_bags } = cleanup;
 
   return (
     <div className="card bg-dark feed-item">
@@ -14,9 +18,9 @@ const CleanupFeedItem = ({ cleanup }) => {
           gridTemplateColumns: "42px 1fr auto",
         }}
       >
-        <img src={null} alt="" style={styles.avatar} />
+        <img src={oakLeaf} alt="" style={styles.avatar} />
         <div style={styles.meta}>
-          <p className="font-sm">{userName}</p>
+          <p className="font-sm">{user.username}</p>
           <p className="font-sm">{dateConverter(date)}</p>
         </div>
         <div
@@ -107,6 +111,7 @@ const styles = {
     width: "42px",
     border: "1px solid #fff",
     borderRadius: "50%",
+    backgroundColor: "#cb997e"
   },
   meta: {
     display: "flex",

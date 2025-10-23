@@ -7,7 +7,6 @@ export const Route = createFileRoute('/profile/')({
 
 function ProfilePage() {
   const { user } = useAuth();
-  console.log('user: ', user)
 
   return <>
     {user && (

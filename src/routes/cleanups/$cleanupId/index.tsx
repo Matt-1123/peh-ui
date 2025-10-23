@@ -4,6 +4,9 @@ import {queryOptions, useSuspenseQuery, useMutation} from '@tanstack/react-query
 import { fetchCleanup, deleteCleanup } from '@/api/cleanups'
 import { FaEdit, FaTrash, FaArrowLeft } from 'react-icons/fa'
 import { useAuth } from '@/context/AuthContext'
+import oakLeaf from '@/assets/img/profile-leaf-icons/oak-leaf.png'
+import dateConverter from '@/utils/dateConverter'
+
 
 const cleanupQueryOptions = (cleanupId: string) => queryOptions({
   queryKey: ['cleanup', cleanupId],
@@ -97,10 +100,10 @@ function CleanupDetailsPage() {
           gridTemplateColumns: "42px 1fr",
         }}
       >
-        <img src="" alt="" style={styles.avatar} />
+        <img src={oakLeaf} alt="" style={styles.avatar} />
         <div style={styles.meta}>
-          {/* <p className="font-sm">{userName}</p> */}
-          {/* <p className="font-sm">{dateConverter(date)}</p> */}
+          <p className="font-sm">{user.username}</p>
+          <p className="font-sm">{dateConverter(cleanup.date)}</p>
         </div>
       </div>
 
@@ -160,6 +163,8 @@ const styles = {
     width: "42px",
     border: "1px solid #fff",
     borderRadius: "50%",
+    backgroundColor: "#cb997e"
+
   },
   meta: {
     display: "flex",
