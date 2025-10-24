@@ -11,7 +11,7 @@ const Header = () => {
   const navigate = useNavigate();
   const { user, setUser, setAccessToken } = useAuth();
 
-  const [openSubmenu, setOpenSubmenu] = useState(true);
+  const [openSubmenu, setOpenSubmenu] = useState(false);
   const [openMobileMenu, setOpenMobileMenu] = useState(false)
 
   const handleMouseEnter = () => {
