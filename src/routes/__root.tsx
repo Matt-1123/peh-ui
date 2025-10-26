@@ -32,7 +32,7 @@ function RootLayout() {
     <>
       <HeadContent />
       <Header />
-      <main>
+      <main style={{ minHeight: '70vh' }}>
         <Outlet />
         <Analytics />
       </main>
