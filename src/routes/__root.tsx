@@ -4,6 +4,7 @@ import { HeadContent, Outlet, createRootRouteWithContext, Link } from '@tanstack
 import { QueryClient } from '@tanstack/react-query'
 import { ToastContainer } from 'react-toastify';
 import Header from '@/components/Header'
+import Footer from '@/components/Footer'
 import { Analytics } from '@vercel/analytics/react';
 
 type RouterContext = {
@@ -35,6 +36,7 @@ function RootLayout() {
         <Outlet />
         <Analytics />
       </main>
+      <Footer />
       {/* <TanstackDevtools
         config={{
           position: 'bottom-left',

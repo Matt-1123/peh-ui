@@ -148,6 +148,13 @@ img {
   color: var(--light-color)
 }
 
+.text-danger {
+  color: var(--danger-color)
+}
+button.text-danger:hover {
+  opacity: 0.8; 
+}
+
 .text-center {
   text-align: center;
 }
@@ -764,6 +771,12 @@ table th {
 }
 
 /* ------------------- */
+
+/* -------------- Footer ------------- */
+footer {
+  /* background-color: #1a2310; dark dark green */
+  background-color: #1e140a; 
+}
 
 /* Authentication Pages (Login and Signup) */
 .backgroundImage {
