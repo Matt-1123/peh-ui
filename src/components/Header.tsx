@@ -111,7 +111,12 @@ const Header = () => {
           </ul>
         </div>
       </div>
-      <MobileMenu openMobileMenu={openMobileMenu} user={user} handleLogout={handleLogout} />
+      <MobileMenu 
+        openMobileMenu={openMobileMenu} 
+        setOpenMobileMenu={setOpenMobileMenu}
+        user={user} 
+        handleLogout={handleLogout} 
+      />
       <span className={`overlay ${openMobileMenu ? 'active' : null}`}></span>
     </header>
   );
