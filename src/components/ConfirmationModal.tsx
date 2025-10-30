@@ -2,12 +2,12 @@
 import { useState } from 'react';
 import { CiCircleAlert } from "react-icons/ci";
 
-const ConfirmationModal = ({ openModal, setOpenModal, title, text }) => {
+const ConfirmationModal = ({ openModal, setOpenModal, setConfirmDelete, title, text }) => {
   const [result, setResult] = useState('');
 
   const handleConfirm = () => {
-    setResult('Your account has been deleted.');
     setOpenModal(false);
+    setConfirmDelete(true);
   };
 
   const handleCancel = () => {

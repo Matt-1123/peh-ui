@@ -1,17 +1,21 @@
 //@ts-nocheck
-import { useState } from 'react'
-import { createFileRoute } from '@tanstack/react-router'
+import { useState, useEffect } from 'react'
+import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import {useMutation} from '@tanstack/react-query'
 import { useAuth } from '@/context/AuthContext';
 import ConfirmationModal from '../../components/ConfirmationModal'
 import { deleteUser } from '@/api/user'
+import { logoutUser } from '@/api/auth';
 
 export const Route = createFileRoute('/profile/')({
   component: ProfilePage,
 })
 
 function ProfilePage() {
-  const { user } = useAuth();
+  const { user, setUser, setAccessToken } = useAuth();
+
+  const navigate = useNavigate();
+
   const [openModal, setOpenModal] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState(false);
 
@@ -24,12 +28,23 @@ function ProfilePage() {
     },
   });
   
+  useEffect(() => {
+    if (confirmDelete) {
+      const callDeleteMutate = async () => {
+        console.log('confirmDelete is true')
+        await deleteMutate();
+        await logoutUser();
+        setAccessToken(null);
+        setUser(null);
+        // navigate({ to: '/' })
+      }
+
+      callDeleteMutate();
+    }
+  }, [confirmDelete]);
+
   const handleDeleteAccount = async () => {
     setOpenModal(true);
-
-    if (confirmDelete) {
-      await deleteMutate();
-    }
   }
 
   return <>
@@ -51,7 +66,6 @@ function ProfilePage() {
     {openModal && <ConfirmationModal 
       openModal={openModal} 
       setOpenModal={setOpenModal} 
-      confirmDelete={confirmDelete}
       setConfirmDelete={setConfirmDelete}
       title="Confirm Account Deletion" 
       text="Are you sure you want to delete your account? This action cannot be undone." 
