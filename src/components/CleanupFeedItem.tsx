@@ -25,8 +25,6 @@ const CleanupFeedItem = ({ cleanup }) => {
     enabled: !!cleanup.user_id,
   })
 
-  const username = cleanupUser[0].username;
-
   return (
     <div className="card bg-dark feed-item">
       <div
@@ -37,7 +35,7 @@ const CleanupFeedItem = ({ cleanup }) => {
       >
         <img src={oakLeaf} alt="" style={styles.avatar} />
         <div style={styles.meta}>
-          <p className="font-sm">{username}</p>
+          <p className="font-sm">{cleanupUser?.[0]?.username || 'Loading...'}</p>
           <p className="font-sm">{dateConverter(date)}</p>
         </div>
         <div

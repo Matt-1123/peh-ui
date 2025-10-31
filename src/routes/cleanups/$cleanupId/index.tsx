@@ -38,8 +38,6 @@ function CleanupDetailsPage() {
     enabled: !!cleanup.user_id,
   })
 
-  const username = cleanupUser[0].username;
-
   const { mutateAsync: deleteMutate, isPending } = useMutation({
     mutationFn: () => deleteCleanup(cleanupId),
     onSuccess: () => {
@@ -111,7 +109,7 @@ function CleanupDetailsPage() {
       >
         <img src={oakLeaf} alt="" style={styles.avatar} />
         <div style={styles.meta}>
-          <p className="font-sm">{username}</p>
+          <p className="font-sm">{cleanupUser?.[0]?.username || 'Loading...'}</p>
           <p className="font-sm">{dateConverter(cleanup.date)}</p>
         </div>
       </div>
