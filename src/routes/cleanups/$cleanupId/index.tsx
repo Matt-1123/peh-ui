@@ -1,7 +1,8 @@
 // @ts-nocheck
 import { createFileRoute, Link, useNavigate } from '@tanstack/react-router'
-import {queryOptions, useSuspenseQuery, useMutation} from '@tanstack/react-query'
+import {queryOptions, useSuspenseQuery, useQuery, useMutation} from '@tanstack/react-query'
 import { fetchCleanup, deleteCleanup } from '@/api/cleanups'
+import { fetchUser } from '@/api/user'
 import { FaEdit, FaTrash, FaArrowLeft } from 'react-icons/fa'
 import { useAuth } from '@/context/AuthContext'
 import oakLeaf from '@/assets/img/profile-leaf-icons/oak-leaf.png'
@@ -31,6 +32,14 @@ function CleanupDetailsPage() {
   
   const {data: cleanup} = useSuspenseQuery(cleanupQueryOptions(cleanupId))
   
+  const {data: cleanupUser} = useQuery({
+    queryKey: ['user', cleanup.user_id],
+    queryFn: () => fetchUser(cleanup.user_id),
+    enabled: !!cleanup.user_id,
+  })
+
+  const username = cleanupUser[0].username;
+
   const { mutateAsync: deleteMutate, isPending } = useMutation({
     mutationFn: () => deleteCleanup(cleanupId),
     onSuccess: () => {
@@ -102,7 +111,7 @@ function CleanupDetailsPage() {
       >
         <img src={oakLeaf} alt="" style={styles.avatar} />
         <div style={styles.meta}>
-          <p className="font-sm">{user.username}</p>
+          <p className="font-sm">{username}</p>
           <p className="font-sm">{dateConverter(cleanup.date)}</p>
         </div>
       </div>

@@ -10,7 +10,6 @@ export const fetchCleanups = async (limit?:number): Promise<Cleanup[]> => {
 
 export const fetchCleanup = async (cleanupId: string): Promise<Cleanup> => {
   const res = await api.get(`/cleanups/${cleanupId}`);
-  console.log('fetch cleanup ', cleanupId, JSON.stringify(res.data))
   return res.data;
 }
 
@@ -32,9 +31,6 @@ export const createCleanup = async (newCleanup: {
     ...newCleanup,
     createdAt: mysqlDateTime
   }); 
-
-  console.log('cleanup: ', res.data)
-  console.log('post request to /cleanups complete')
 
   return res.data;
 }

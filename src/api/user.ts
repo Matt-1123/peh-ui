@@ -3,7 +3,6 @@ import type { User } from "@/types";
 
 export const fetchUser = async (userId: string): Promise<User> => {
   const res = await api.get(`/user/${userId}`);
-  console.log('fetch user ', userId, JSON.stringify(res.data))
   return res.data;
 }
 

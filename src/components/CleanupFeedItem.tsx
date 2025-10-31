@@ -2,13 +2,30 @@
 import { Link } from '@tanstack/react-router';
 import { FaEdit, FaTrash, FaEllipsisH } from 'react-icons/fa'
 import { useAuth } from '@/context/AuthContext';
+import { useQuery } from '@tanstack/react-query'
+import { fetchUser } from '@/api/user'
 import dateConverter from '../utils/dateConverter'
 import oakLeaf from '../assets/img/profile-leaf-icons/oak-leaf.png'
 
 const CleanupFeedItem = ({ cleanup }) => {
   const { user } = useAuth();
+
+  const cleanupQueryOptions = (cleanupId: string) => queryOptions({
+    queryKey: ['cleanup', cleanupId],
+    queryFn: () => fetchCleanup(cleanupId),
+    // @ts-ignore
+    select: (data) => data[0]
+  })
   
-  const { id, title, date, description, group_size, duration, location, env_type, total_items, total_bags } = cleanup;
+  const { id, user_id, title, date, description, group_size, duration, location, env_type, total_items, total_bags } = cleanup;
+
+  const {data: cleanupUser} = useQuery({
+    queryKey: ['user', cleanup.user_id],
+    queryFn: () => fetchUser(cleanup.user_id),
+    enabled: !!cleanup.user_id,
+  })
+
+  const username = cleanupUser[0].username;
 
   return (
     <div className="card bg-dark feed-item">
@@ -20,7 +37,7 @@ const CleanupFeedItem = ({ cleanup }) => {
       >
         <img src={oakLeaf} alt="" style={styles.avatar} />
         <div style={styles.meta}>
-          <p className="font-sm">{user.username}</p>
+          <p className="font-sm">{username}</p>
           <p className="font-sm">{dateConverter(date)}</p>
         </div>
         <div

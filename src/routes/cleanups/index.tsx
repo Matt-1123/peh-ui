@@ -33,9 +33,6 @@ function CleanupsPage() {
       <h1>All Cleanups</h1>
       {cleanups.map(cleanup => (
         <CleanupFeedItem key={cleanup.id} cleanup={cleanup} />
-        // <li key={cleanup.id}>
-        //   <Link to='/cleanups/$cleanupId' params={{cleanupId: cleanup.id.toString()}}>{cleanup.title}</Link>
-        // </li>
       ))}
     </div>
   </>
