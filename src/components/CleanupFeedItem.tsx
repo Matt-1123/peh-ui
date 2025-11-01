@@ -43,19 +43,6 @@ const CleanupFeedItem = ({ cleanup }) => {
             display: "inline-block",
           }}
         >
-          {/* <button style={{ marginRight: "10px" }}>
-            <FaEdit style={{ color: "#999" }} />
-          </button>
-          <button>
-            <Link to="/" style={{ marginRight: "10px" }}>
-              <FaTrash style={{ color: "#dc3545" }} />
-            </Link>
-          </button> */}
-          {/* <button style={{ height: "1rem" }}>
-            <FaEllipsisH
-              style={{ color: "#555", justifySelf: "end" }}
-            />
-          </button> */}
         </div>
       </div>
       <div

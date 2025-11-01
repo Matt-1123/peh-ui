@@ -394,12 +394,23 @@ button.text-danger:hover {
   grid-template-columns: 2fr 3fr;
   grid-gap: 2rem;
 }
-/* Home Layout */
+/* -------------- Home Layout ------------*/
 .grid-2-5-2 {
   display: grid;
   grid-template-columns: 2fr 5fr 2fr;
   grid-gap: 2rem;
 }
+
+.latest-action-item {
+  box-shadow: rgba(80, 84, 80, 0.33) 0px 3px 8px;
+  border-radius: 10px;
+  padding: 1rem;
+  margin: 1rem 0;
+  color: var(--light-color);
+  background: #1f1f1f;
+}
+
+/* ------------- Buttons --------------  */
 
 .btn {
   display: inline-block;
@@ -408,9 +419,10 @@ button.text-danger:hover {
   padding: 0.4rem 1.3rem;
   font-size: 1rem;
   border: none;
+  border-radius: 0.5rem;
   cursor: pointer;
   margin-right: 0.5rem;
-  transition: opacity 0.2s ease-in;
+  transition: opacity 0.2s ease-in, background 0.2s;
   outline: none;
 }
 
