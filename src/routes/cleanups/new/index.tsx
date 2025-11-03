@@ -22,24 +22,23 @@ function NewCleanupPage() {
   const [environmentType, setEnvironmentType] = useState('');
   const [totalItemsCollected, setTotalItemsCollected] = useState(null);
   const [totalBagsCollected, setTotalBagsCollected] = useState(null);
-  
-  // useEffect(() => {
-  //   // Focus the title input when the component mounts
-  //   if(inputRef.current) {
-  //       inputRef.current.focus();
-  //   }
-  // }, []);
-    
-  // const inputRef = useRef(null);
 
   const { mutateAsync, isPending } = useMutation({
     mutationFn: createCleanup,
     onSuccess: () => {
       navigate({to: '/cleanups'});
       toast.success('Cleanup created successfully!');
-      window.alert('Cleanup created successfully')
     }
   });
+
+  // Get today's date in YYYY-MM-DD format for the html date input's max attribute
+  const getTodayDate = () => {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
+    const day = String(today.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
 
   const environmentTypeOptions = [
     { value: "", label: "Select an environment type", disabled: true },
@@ -59,19 +58,6 @@ function NewCleanupPage() {
     }
 
     try {
-      // await mutateAsync({
-      //   title,
-      //   date,
-      //   description: description ? description : '',
-      //   location,
-      //   // group_size: groupSize,
-      //   group_size: parseInt(groupSize.toString()),
-      //   env_type: environmentType,
-      //   // total_items: totalItemsCollected ? totalItemsCollected : null,
-      //   total_items: totalItemsCollected ? parseInt(totalItemsCollected) : null,
-      //   // total_bags: totalBagsCollected ? totalBagsCollected : null,
-      //   total_bags: totalBagsCollected ? parseInt(totalBagsCollected) : null,
-
       await mutateAsync({
         title,
         date,
@@ -124,6 +110,7 @@ function NewCleanupPage() {
               id="date"
               type="date"
               name="date"
+              max={getTodayDate()}
               value={date}
               onChange={(e) => setDate(e.target.value)}
               required
@@ -144,7 +131,7 @@ function NewCleanupPage() {
 
       <div className="form-group grid-2">
           <div>
-              <label htmlFor="environment-type">Environment Type</label>
+              <label htmlFor="environment-type">Environment Type*</label>
               <Select
                   styles={customStyles}
                   // defaultInputValue={}
@@ -157,7 +144,7 @@ function NewCleanupPage() {
               />
           </div>
           <div>
-              <label htmlFor="groupSize">Group Size</label>
+              <label htmlFor="groupSize">Group Size*</label>
               <input
                   id="groupSize"
                   style={styles.number}
@@ -166,7 +153,8 @@ function NewCleanupPage() {
                   value={groupSize}
                   onChange={(e) => setGroupSize(e.target.value)}
                   min="1"
-                  max="9999"
+                  max="999"
+                  required
               />
           </div>
       </div>
