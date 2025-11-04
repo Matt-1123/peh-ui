@@ -104,6 +104,12 @@ img {
   padding: 0 2rem;
 }
 
+.infoBox {
+  padding: 0.5rem;
+  margin: 0.5rem 0;
+  border: 1px solid var(--light-color)
+}
+
 /* Text Styles*/
 .font-xl {
   font-size: 4rem;

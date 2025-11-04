@@ -6,6 +6,7 @@ import {useMutation} from '@tanstack/react-query';
 import Select from "react-select";
 import { toast } from 'react-toastify';
 import { createCleanup } from '@/api/cleanups';
+import { RiInformation2Line } from 'react-icons/ri';
 
 export const Route = createFileRoute('/cleanups/new/')({
   component: NewCleanupPage,
@@ -22,6 +23,7 @@ function NewCleanupPage() {
   const [environmentType, setEnvironmentType] = useState('');
   const [totalItemsCollected, setTotalItemsCollected] = useState(null);
   const [totalBagsCollected, setTotalBagsCollected] = useState(null);
+  const [showBagInfoBox, setShowBagInfoBox] = useState(false)
 
   const { mutateAsync, isPending } = useMutation({
     mutationFn: createCleanup,
@@ -47,6 +49,10 @@ function NewCleanupPage() {
     { value: "beach", label: "Beach" },
     { value: "other", label: "Other" },
   ];
+
+  const handleBagInfo = () => {
+    setShowBagInfoBox(!showBagInfoBox);
+  }
 
   const submitForm = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -174,11 +180,13 @@ function NewCleanupPage() {
               />
           </div>
           <div>
-              <label htmlFor="groupSize">Total Bags Collected</label>
+              <label htmlFor="groupSize">Total Bags Collected <RiInformation2Line onClick={handleBagInfo} style={{ cursor: 'pointer', position: 'relative' }}/></label>
+              {showBagInfoBox && <div className="infoBox">Please enter 0.25 increments. Bags are calculated based on a standard 13 gallon size. For 30 gallon bags, enter 2.25 for a full bag. For a 5 gallon bag, round up to 0.5.</div>}
               <input
                   id="totalBagsCollected"
                   style={styles.number}
                   type="number"
+                  step="0.25"
                   name="totalBagsCollected"
                   // value={totalBagsCollected}
                   onChange={(e) => setTotalBagsCollected(e.target.value)}
