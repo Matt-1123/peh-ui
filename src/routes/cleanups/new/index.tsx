@@ -1,7 +1,7 @@
 // @ts-nocheck
+import { useEffect, useState } from 'react';
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import type { Cleanup } from '@/types';
-import { useState } from 'react';
 import {useMutation} from '@tanstack/react-query';
 import Select from "react-select";
 import { toast } from 'react-toastify';
@@ -72,7 +72,7 @@ function NewCleanupPage() {
         group_size: parseInt(groupSize.toString()),
         env_type: environmentType,
         total_items: totalItemsCollected ? parseInt(totalItemsCollected) : null,
-        total_bags: totalBagsCollected ? parseInt(totalBagsCollected) : null,
+        total_bags: totalBagsCollected ? parseFloat(totalBagsCollected) : null,
       });
     } catch (error) {
       console.error('Error creating cleanup:', error);
@@ -180,7 +180,7 @@ function NewCleanupPage() {
               />
           </div>
           <div>
-              <label htmlFor="groupSize">Total Bags Collected <RiInformation2Line onClick={handleBagInfo} style={{ cursor: 'pointer', position: 'relative' }}/></label>
+              <label htmlFor="totalBagsCollected">Total Bags Collected <RiInformation2Line onClick={handleBagInfo} style={{ cursor: 'pointer', position: 'relative' }}/></label>
               {showBagInfoBox && <div className="infoBox">Please enter 0.25 increments. Bags are calculated based on a standard 13 gallon size. For 30 gallon bags, enter 2.25 for a full bag. For a 5 gallon bag, round up to 0.5.</div>}
               <input
                   id="totalBagsCollected"

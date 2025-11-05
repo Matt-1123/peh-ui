@@ -7,6 +7,7 @@ import {
   useMutation,
 } from '@tanstack/react-query';
 import { fetchCleanup, deleteCleanup, updateCleanup } from '@/api/cleanups';
+import { RiInformation2Line } from 'react-icons/ri';
 
 const cleanupQueryOptions = (cleanupId: string) =>
   queryOptions({
@@ -38,6 +39,7 @@ function CleanupEditPage() {
   const [environmentType, setEnvironmentType] = useState(cleanup.env_type);
   const [totalItemsCollected, setTotalItemsCollected] = useState(cleanup.total_items);
   const [totalBagsCollected, setTotalBagsCollected] = useState(cleanup.total_bags);
+  const [showBagInfoBox, setShowBagInfoBox] = useState(false)
 
   const navigate = useNavigate();
   
@@ -47,6 +49,10 @@ function CleanupEditPage() {
       navigate({ to: '/cleanups' });
     },
   });
+
+  const handleBagInfo = () => {
+    setShowBagInfoBox(!showBagInfoBox);
+  }
 
   const handleDelete = async () => {
     const confirmDelete = window.confirm(
@@ -68,7 +74,7 @@ function CleanupEditPage() {
         group_size: parseInt(groupSize.toString()),
         env_type: environmentType,
         total_items: totalItemsCollected ? parseInt(totalItemsCollected) : null,
-        total_bags: totalBagsCollected ? parseInt(totalBagsCollected) : null,
+        total_bags: totalBagsCollected ? parseFloat(totalBagsCollected) : null,
       }),
     onSuccess: () => {
       navigate({ to: '/cleanups/$cleanupId', params: { cleanupId } });
@@ -181,10 +187,12 @@ function CleanupEditPage() {
               />
           </div>
           <div>
-              <label htmlFor="groupSize">Total Bags Collected</label>
+              <label htmlFor="totalBagsCollected">Total Bags Collected <RiInformation2Line onClick={handleBagInfo} style={{ cursor: 'pointer', position: 'relative' }} /></label>
+              {showBagInfoBox && <div className="infoBox">Please enter 0.25 increments. Bags are calculated based on a standard 13 gallon size. For 30 gallon bags, enter 2.25 for a full bag. For a 5 gallon bag, round up to 0.5.</div>}
               <input
                   id="totalBagsCollected"
                   type="number"
+                  step="0.25"
                   style={styles.number}
                   name="totalBagsCollected"
                   value={totalBagsCollected}
