@@ -13,6 +13,11 @@ export const fetchCleanup = async (cleanupId: string): Promise<Cleanup> => {
   return res.data;
 }
 
+export const fetchUserCleanups = async (userId: string): Promise<Cleanup[]> => {
+  const res = await api.get(`cleanups/user/${userId}`);
+  return res.data;
+}
+
 export const createCleanup = async (newCleanup: {
   title: string;
   date: string;
