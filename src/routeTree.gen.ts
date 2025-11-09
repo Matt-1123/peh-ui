@@ -21,6 +21,7 @@ import { Route as ActionsDietIndexRouteImport } from './routes/actions/diet/inde
 import { Route as CleanupsCleanupIdEditRouteImport } from './routes/cleanups/$cleanupId/edit'
 import { Route as ActionsDietNewIndexRouteImport } from './routes/actions/diet/new/index'
 import { Route as ActionsDietActionIdIndexRouteImport } from './routes/actions/diet/$actionId/index'
+import { Route as ActionsDietActionIdEditRouteImport } from './routes/actions/diet/$actionId/edit'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -83,6 +84,11 @@ const ActionsDietActionIdIndexRoute =
     path: '/actions/diet/$actionId/',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ActionsDietActionIdEditRoute = ActionsDietActionIdEditRouteImport.update({
+  id: '/actions/diet/$actionId/edit',
+  path: '/actions/diet/$actionId/edit',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -95,6 +101,7 @@ export interface FileRoutesByFullPath {
   '/actions/diet': typeof ActionsDietIndexRoute
   '/cleanups/$cleanupId': typeof CleanupsCleanupIdIndexRoute
   '/cleanups/new': typeof CleanupsNewIndexRoute
+  '/actions/diet/$actionId/edit': typeof ActionsDietActionIdEditRoute
   '/actions/diet/$actionId': typeof ActionsDietActionIdIndexRoute
   '/actions/diet/new': typeof ActionsDietNewIndexRoute
 }
@@ -109,6 +116,7 @@ export interface FileRoutesByTo {
   '/actions/diet': typeof ActionsDietIndexRoute
   '/cleanups/$cleanupId': typeof CleanupsCleanupIdIndexRoute
   '/cleanups/new': typeof CleanupsNewIndexRoute
+  '/actions/diet/$actionId/edit': typeof ActionsDietActionIdEditRoute
   '/actions/diet/$actionId': typeof ActionsDietActionIdIndexRoute
   '/actions/diet/new': typeof ActionsDietNewIndexRoute
 }
@@ -124,6 +132,7 @@ export interface FileRoutesById {
   '/actions/diet/': typeof ActionsDietIndexRoute
   '/cleanups/$cleanupId/': typeof CleanupsCleanupIdIndexRoute
   '/cleanups/new/': typeof CleanupsNewIndexRoute
+  '/actions/diet/$actionId/edit': typeof ActionsDietActionIdEditRoute
   '/actions/diet/$actionId/': typeof ActionsDietActionIdIndexRoute
   '/actions/diet/new/': typeof ActionsDietNewIndexRoute
 }
@@ -140,6 +149,7 @@ export interface FileRouteTypes {
     | '/actions/diet'
     | '/cleanups/$cleanupId'
     | '/cleanups/new'
+    | '/actions/diet/$actionId/edit'
     | '/actions/diet/$actionId'
     | '/actions/diet/new'
   fileRoutesByTo: FileRoutesByTo
@@ -154,6 +164,7 @@ export interface FileRouteTypes {
     | '/actions/diet'
     | '/cleanups/$cleanupId'
     | '/cleanups/new'
+    | '/actions/diet/$actionId/edit'
     | '/actions/diet/$actionId'
     | '/actions/diet/new'
   id:
@@ -168,6 +179,7 @@ export interface FileRouteTypes {
     | '/actions/diet/'
     | '/cleanups/$cleanupId/'
     | '/cleanups/new/'
+    | '/actions/diet/$actionId/edit'
     | '/actions/diet/$actionId/'
     | '/actions/diet/new/'
   fileRoutesById: FileRoutesById
@@ -183,6 +195,7 @@ export interface RootRouteChildren {
   ActionsDietIndexRoute: typeof ActionsDietIndexRoute
   CleanupsCleanupIdIndexRoute: typeof CleanupsCleanupIdIndexRoute
   CleanupsNewIndexRoute: typeof CleanupsNewIndexRoute
+  ActionsDietActionIdEditRoute: typeof ActionsDietActionIdEditRoute
   ActionsDietActionIdIndexRoute: typeof ActionsDietActionIdIndexRoute
   ActionsDietNewIndexRoute: typeof ActionsDietNewIndexRoute
 }
@@ -273,6 +286,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ActionsDietActionIdIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/actions/diet/$actionId/edit': {
+      id: '/actions/diet/$actionId/edit'
+      path: '/actions/diet/$actionId/edit'
+      fullPath: '/actions/diet/$actionId/edit'
+      preLoaderRoute: typeof ActionsDietActionIdEditRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -287,6 +307,7 @@ const rootRouteChildren: RootRouteChildren = {
   ActionsDietIndexRoute: ActionsDietIndexRoute,
   CleanupsCleanupIdIndexRoute: CleanupsCleanupIdIndexRoute,
   CleanupsNewIndexRoute: CleanupsNewIndexRoute,
+  ActionsDietActionIdEditRoute: ActionsDietActionIdEditRoute,
   ActionsDietActionIdIndexRoute: ActionsDietActionIdIndexRoute,
   ActionsDietNewIndexRoute: ActionsDietNewIndexRoute,
 }
