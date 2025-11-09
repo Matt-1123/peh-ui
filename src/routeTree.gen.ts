@@ -17,7 +17,10 @@ import { Route as CleanupsIndexRouteImport } from './routes/cleanups/index'
 import { Route as AboutIndexRouteImport } from './routes/about/index'
 import { Route as CleanupsNewIndexRouteImport } from './routes/cleanups/new/index'
 import { Route as CleanupsCleanupIdIndexRouteImport } from './routes/cleanups/$cleanupId/index'
+import { Route as ActionsDietIndexRouteImport } from './routes/actions/diet/index'
 import { Route as CleanupsCleanupIdEditRouteImport } from './routes/cleanups/$cleanupId/edit'
+import { Route as ActionsDietNewIndexRouteImport } from './routes/actions/diet/new/index'
+import { Route as ActionsDietActionIdIndexRouteImport } from './routes/actions/diet/$actionId/index'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -59,11 +62,27 @@ const CleanupsCleanupIdIndexRoute = CleanupsCleanupIdIndexRouteImport.update({
   path: '/cleanups/$cleanupId/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ActionsDietIndexRoute = ActionsDietIndexRouteImport.update({
+  id: '/actions/diet/',
+  path: '/actions/diet/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CleanupsCleanupIdEditRoute = CleanupsCleanupIdEditRouteImport.update({
   id: '/cleanups/$cleanupId/edit',
   path: '/cleanups/$cleanupId/edit',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ActionsDietNewIndexRoute = ActionsDietNewIndexRouteImport.update({
+  id: '/actions/diet/new/',
+  path: '/actions/diet/new/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ActionsDietActionIdIndexRoute =
+  ActionsDietActionIdIndexRouteImport.update({
+    id: '/actions/diet/$actionId/',
+    path: '/actions/diet/$actionId/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -73,8 +92,11 @@ export interface FileRoutesByFullPath {
   '/profile': typeof ProfileIndexRoute
   '/signup': typeof SignupIndexRoute
   '/cleanups/$cleanupId/edit': typeof CleanupsCleanupIdEditRoute
+  '/actions/diet': typeof ActionsDietIndexRoute
   '/cleanups/$cleanupId': typeof CleanupsCleanupIdIndexRoute
   '/cleanups/new': typeof CleanupsNewIndexRoute
+  '/actions/diet/$actionId': typeof ActionsDietActionIdIndexRoute
+  '/actions/diet/new': typeof ActionsDietNewIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -84,8 +106,11 @@ export interface FileRoutesByTo {
   '/profile': typeof ProfileIndexRoute
   '/signup': typeof SignupIndexRoute
   '/cleanups/$cleanupId/edit': typeof CleanupsCleanupIdEditRoute
+  '/actions/diet': typeof ActionsDietIndexRoute
   '/cleanups/$cleanupId': typeof CleanupsCleanupIdIndexRoute
   '/cleanups/new': typeof CleanupsNewIndexRoute
+  '/actions/diet/$actionId': typeof ActionsDietActionIdIndexRoute
+  '/actions/diet/new': typeof ActionsDietNewIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -96,8 +121,11 @@ export interface FileRoutesById {
   '/profile/': typeof ProfileIndexRoute
   '/signup/': typeof SignupIndexRoute
   '/cleanups/$cleanupId/edit': typeof CleanupsCleanupIdEditRoute
+  '/actions/diet/': typeof ActionsDietIndexRoute
   '/cleanups/$cleanupId/': typeof CleanupsCleanupIdIndexRoute
   '/cleanups/new/': typeof CleanupsNewIndexRoute
+  '/actions/diet/$actionId/': typeof ActionsDietActionIdIndexRoute
+  '/actions/diet/new/': typeof ActionsDietNewIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -109,8 +137,11 @@ export interface FileRouteTypes {
     | '/profile'
     | '/signup'
     | '/cleanups/$cleanupId/edit'
+    | '/actions/diet'
     | '/cleanups/$cleanupId'
     | '/cleanups/new'
+    | '/actions/diet/$actionId'
+    | '/actions/diet/new'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -120,8 +151,11 @@ export interface FileRouteTypes {
     | '/profile'
     | '/signup'
     | '/cleanups/$cleanupId/edit'
+    | '/actions/diet'
     | '/cleanups/$cleanupId'
     | '/cleanups/new'
+    | '/actions/diet/$actionId'
+    | '/actions/diet/new'
   id:
     | '__root__'
     | '/'
@@ -131,8 +165,11 @@ export interface FileRouteTypes {
     | '/profile/'
     | '/signup/'
     | '/cleanups/$cleanupId/edit'
+    | '/actions/diet/'
     | '/cleanups/$cleanupId/'
     | '/cleanups/new/'
+    | '/actions/diet/$actionId/'
+    | '/actions/diet/new/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -143,8 +180,11 @@ export interface RootRouteChildren {
   ProfileIndexRoute: typeof ProfileIndexRoute
   SignupIndexRoute: typeof SignupIndexRoute
   CleanupsCleanupIdEditRoute: typeof CleanupsCleanupIdEditRoute
+  ActionsDietIndexRoute: typeof ActionsDietIndexRoute
   CleanupsCleanupIdIndexRoute: typeof CleanupsCleanupIdIndexRoute
   CleanupsNewIndexRoute: typeof CleanupsNewIndexRoute
+  ActionsDietActionIdIndexRoute: typeof ActionsDietActionIdIndexRoute
+  ActionsDietNewIndexRoute: typeof ActionsDietNewIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -205,11 +245,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CleanupsCleanupIdIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/actions/diet/': {
+      id: '/actions/diet/'
+      path: '/actions/diet'
+      fullPath: '/actions/diet'
+      preLoaderRoute: typeof ActionsDietIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/cleanups/$cleanupId/edit': {
       id: '/cleanups/$cleanupId/edit'
       path: '/cleanups/$cleanupId/edit'
       fullPath: '/cleanups/$cleanupId/edit'
       preLoaderRoute: typeof CleanupsCleanupIdEditRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/actions/diet/new/': {
+      id: '/actions/diet/new/'
+      path: '/actions/diet/new'
+      fullPath: '/actions/diet/new'
+      preLoaderRoute: typeof ActionsDietNewIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/actions/diet/$actionId/': {
+      id: '/actions/diet/$actionId/'
+      path: '/actions/diet/$actionId'
+      fullPath: '/actions/diet/$actionId'
+      preLoaderRoute: typeof ActionsDietActionIdIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -223,8 +284,11 @@ const rootRouteChildren: RootRouteChildren = {
   ProfileIndexRoute: ProfileIndexRoute,
   SignupIndexRoute: SignupIndexRoute,
   CleanupsCleanupIdEditRoute: CleanupsCleanupIdEditRoute,
+  ActionsDietIndexRoute: ActionsDietIndexRoute,
   CleanupsCleanupIdIndexRoute: CleanupsCleanupIdIndexRoute,
   CleanupsNewIndexRoute: CleanupsNewIndexRoute,
+  ActionsDietActionIdIndexRoute: ActionsDietActionIdIndexRoute,
+  ActionsDietNewIndexRoute: ActionsDietNewIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
