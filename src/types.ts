@@ -13,6 +13,15 @@ export type Cleanup = {
   updatedAt: string;
 };
 
+export type DietActionMeal = {
+  id: string;
+  mealName: string;
+  date: string;
+  description: string;
+  foodsAvoided: object;
+  totalCO2Avoided: number;
+}
+
 export type User = {
   username: string;
   email: string;
