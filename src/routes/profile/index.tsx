@@ -75,7 +75,7 @@ function ProfilePage() {
         </div>
         <div className="container-narrow bg-dark">
           <h2>Manage Account</h2>
-          <a href="#" style={{ display: "block" }}>Update Account</a>
+          {/* <a href="#" style={{ display: "block" }}>Update Account</a> */}
           <button onClick={handleDeleteAccount} className="text-danger">Delete Account</button>
         </div>
       </div>
