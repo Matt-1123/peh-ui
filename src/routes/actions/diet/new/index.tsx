@@ -22,6 +22,18 @@ function NewDietActionPage() {
   const [description, setDescription] = useState('');
   const [foodsAvoided, setFoodsAvoided] = useState({});
   const [totalCO2Avoided, setTotalCO2Avoided] = useState(null);
+  const [avoidedFoodsCheckedState, setAvoidedFoodsCheckedState] = useState(
+    new Array(foodsCO2e.length).fill(false)
+  );
+
+  const handleAvoidedFoodsOnChange = (position) => {
+    const updatedCheckedState = avoidedFoodsCheckedState.map((item, index) =>
+      index === position ? !item : item
+    );
+
+    setAvoidedFoodsCheckedState(updatedCheckedState);
+  };
+
 
   const { mutateAsync, isPending } = useMutation({
     mutationFn: createDietActionMeal,
@@ -131,6 +143,8 @@ function NewDietActionPage() {
                       id={`avoided-food-${index}`}
                       name={name}
                       value={name}
+                      checked={avoidedFoodsCheckedState[index]}
+                      onChange={() => handleAvoidedFoodsOnChange(index)}
                     />
                     <label htmlFor={`avoided-food-${index}`}>{name}</label>
                   </div>
