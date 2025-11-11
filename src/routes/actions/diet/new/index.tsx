@@ -6,6 +6,7 @@ import { useMutation } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import { createDietActionMeal } from '@/api/dietActions';
 import { RiInformation2Line } from 'react-icons/ri';
+import foodsCO2e from '@/utils/foodsCO2e'
 
 export const Route = createFileRoute('/actions/diet/new/')({
   component: NewDietActionPage,
@@ -85,7 +86,7 @@ function NewDietActionPage() {
               id="mealName"
               type="text"
               name="mealName"
-              placeholder="Meal Title"
+              placeholder="Meal Name"
               value={mealName}
               onChange={(e) => setMealName(e.target.value)}
               required
@@ -115,6 +116,30 @@ function NewDietActionPage() {
               onChange={(e) => setDate(e.target.value)}
               required
           />
+      </div>
+
+      <div className="form-group">
+        <h2>Foods Avoided</h2>
+        <ul>
+          {foodsCO2e.map(({ name, kgCO2ePerKg }, index) => {
+            return (
+              <li key={index}>
+                <div>
+                  <div>
+                    <input
+                      type="checkbox"
+                      id={`avoided-food-${index}`}
+                      name={name}
+                      value={name}
+                    />
+                    <label htmlFor={`avoided-food-${index}`}>{name}</label>
+                  </div>
+                  <div>{kgCO2ePerKg} CO2e per kg</div>
+                </div>
+              </li>
+            )
+          })}
+        </ul>
       </div>
 
       <div>
