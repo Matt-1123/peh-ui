@@ -1,58 +1,72 @@
 const foodsCO2e = [
   {
-    name: "Beef (beef herd)",
+    value: "Beef (beef herd)",
+    label: "Beef (beef herd)",
     kgCO2ePerKg: 60
   },
   {
-    name: "Lamb",
+    value: "Lamb",
+    label: "Lamb",
     kgCO2ePerKg: 24
   },
   {
-    name: "Mutton",
+    value: "Mutton",
+    label: "Mutton",
     kgCO2ePerKg: 24
   },
   {
-    name: "Cheese",
+    value: "Cheese",
+    label: "Cheese",
     kgCO2ePerKg: 21
   },
   {
-    name: "Beef (dairy herd)",
+    value: "Beef (dairy herd)",
+    label: "Beef (dairy herd)",
     kgCO2ePerKg: 21
   },
   {
-    name: "Chocolate",
+    value: "Chocolate",
+    label: "Chocolate",
     kgCO2ePerKg: 19
   },
   {
-    name: "Coffee",
+    value: "Coffee",
+    label: "Coffee",
     kgCO2ePerKg: 17
   },
   {
-    name: "Prawns (farmed)",
+    value: "Prawns (farmed)",
+    label: "Prawns (farmed)",
     kgCO2ePerKg: 12
   },
   {
-    name: "Pork",
+    value: "Pork",
+    label: "Pork",
     kgCO2ePerKg: 7
   },
   {
-    name: "Poultry (chicken, turkey, duck, goose)",
+    value: "Poultry (chicken, turkey, duck, goose)",
+    label: "Poultry (chicken, turkey, duck, goose)",
     kgCO2ePerKg: 6
   },
   {
-    name: "Fish (farmed)",
+    value: "Fish (farmed)",
+    label: "Fish (farmed)",
     kgCO2ePerKg: 5
   },
   {
-    name: "Eggs",
+    value: "Eggs",
+    label: "Eggs",
     kgCO2ePerKg: 4.5
   },
   {
-    name: "Rice",
+    value: "Rice",
+    label: "Rice",
     kgCO2ePerKg: 4
   },
   {
-    name: "Milk (cow)",
+    value: "Milk (cow)",
+    label: "Milk (cow)",
     kgCO2ePerKg: 3
   }
 ];

@@ -92,7 +92,7 @@ img {
 .container-narrow {
   max-width: 725px;
   margin: 2rem auto;
-  overflow: hidden;
+  /* overflow: hidden; */
   padding: 2rem;
   border-radius: 20px;
 }
@@ -100,7 +100,7 @@ img {
 .form-container-narrow {
   max-width: 500px;
   margin: 2rem auto;
-  overflow: hidden;
+  /* overflow: hidden; */
   padding: 0 2rem;
 }
 

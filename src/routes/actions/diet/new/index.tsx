@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 import { createDietActionMeal } from '@/api/dietActions';
 import { RiInformation2Line } from 'react-icons/ri';
 import foodsCO2e from '@/utils/foodsCO2e'
+import Select from 'react-select';
 
 export const Route = createFileRoute('/actions/diet/new/')({
   component: NewDietActionPage,
@@ -132,7 +133,26 @@ function NewDietActionPage() {
 
       <div className="form-group">
         <h2>Foods Avoided</h2>
-        <ul>
+        <Select
+          // menuIsOpen={true} // keep open for styling in browser
+          classNamePrefix="react-select"
+          isMulti
+          name="colors"
+          options={foodsCO2e}
+          className="basic-multi-select"
+          styles={{
+            control: (baseStyles, state) => ({
+              ...baseStyles,
+              // borderColor: state.isFocused ? 'grey' : 'red',
+            }),
+            menu: (baseStyles, state) => ({
+              ...baseStyles,
+              color: '#222',
+              position: 'relative'
+            })
+          }}
+        />
+        {/* <ul>
           {foodsCO2e.map(({ name, kgCO2ePerKg }, index) => {
             return (
               <li key={index}>
@@ -153,7 +173,7 @@ function NewDietActionPage() {
               </li>
             )
           })}
-        </ul>
+        </ul> */}
       </div>
 
       <div>
