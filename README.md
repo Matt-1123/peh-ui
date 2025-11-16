@@ -1,5 +1,9 @@
 # Project Earth Health
+Project Earth Health is a web app where you can log environmentally-friendly actions. Currently you can log a cleanup action, in which you can specify the type of environment you cleaned (e.g. path, park, beach, etc), and optionally the number of items and number of bags of trash collected. 
 
+Coming soon: diet actions, in which you can log a meal that results in a smaller carbon output. You'll have the ability to specify which higher carbon footprint food(s) you avoided, such as beef, cheese, or other meats.
+
+## Tech Stack
 - Front End: React (Vite), TanStack
 - Back End: Node.js, Express.js, MySQL
 - Authentication & authorization: TBD (JWT, Clerk, OAuth2.0, etc)
