@@ -542,7 +542,7 @@ button.text-danger:hover {
   border-radius: 50%;
 }
 
-/* Forms */
+/* --------------- Forms --------------- */
 input {
   margin: 1.2rem 0;
 }
@@ -591,6 +591,11 @@ table td {
 
 table th {
   background: var(--light-color);
+}
+
+/* Remove magnifying glass icon from Mapbox SearchBox component - applies to all classes ending with "--SearchIcon"*/
+[class$="--SearchIcon"] {
+  display: none;
 }
 
 /* ------------ Header ------------*/
