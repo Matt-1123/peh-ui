@@ -7,7 +7,7 @@ import Select from "react-select";
 import { toast } from 'react-toastify';
 import { createCleanup } from '@/api/cleanups';
 import { RiInformation2Line } from 'react-icons/ri';
-import { AddressAutofill } from '@mapbox/search-js-react';
+import { SearchBox  } from '@mapbox/search-js-react';
 
 export const Route = createFileRoute('/cleanups/new/')({
   component: NewCleanupPage,
@@ -126,18 +126,19 @@ function NewCleanupPage() {
       
       <div className="form-group">
           <label htmlFor="location">Location*</label>
-          <AddressAutofill accessToken={`${import.meta.env.VITE_MAPBOX}`}>
-            <input
-                id="location"
-                type="text"
-                name="location"
-                value={location}
-                onChange={(e) => setLocation(e.target.value)}
-                autoComplete="street-address"
-                required
-            />
-          </AddressAutofill>
-          
+          <SearchBox
+            accessToken={import.meta.env.VITE_MAPBOX}
+            value={location}
+            onChange={(value) => setLocation(value)}
+            onRetrieve={(result) => {
+              // When user selects a suggestion, use the full address
+              setLocation(result.features[0].properties.full_address || result.features[0].properties.place_formatted);
+            }}
+            placeholder="Enter location"
+            options={{
+              language: 'en'
+            }}
+          />
       </div>
 
       <div className="form-group grid-2">

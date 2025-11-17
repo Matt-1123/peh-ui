@@ -8,6 +8,7 @@ import {
 } from '@tanstack/react-query';
 import { fetchCleanup, deleteCleanup, updateCleanup } from '@/api/cleanups';
 import { RiInformation2Line } from 'react-icons/ri';
+import { SearchBox  } from '@mapbox/search-js-react';
 
 const cleanupQueryOptions = (cleanupId: string) =>
   queryOptions({
@@ -136,13 +137,18 @@ function CleanupEditPage() {
       
       <div className="form-group">
           <label htmlFor="location">Location*</label>
-          <input
-              id="location"
-              type="text"
-              name="location"
-              value={location}
-              onChange={(e) => setLocation(e.target.value)}
-              required
+          <SearchBox
+            accessToken={import.meta.env.VITE_MAPBOX}
+            value={location}
+            onChange={(value) => setLocation(value)}
+            onRetrieve={(result) => {
+              // When user selects a suggestion, use the full address
+              setLocation(result.features[0].properties.full_address || result.features[0].properties.place_formatted);
+            }}
+            placeholder="Enter location"
+            options={{
+              language: 'en'
+            }}
           />
       </div>
 
