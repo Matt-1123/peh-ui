@@ -21,6 +21,7 @@ function NewCleanupPage() {
   const [description, setDescription] = useState('');
   const [location, setLocation] = useState('');
   const [groupSize, setGroupSize] = useState(1);
+  const [duration, setDuration] = useState(null);
   const [environmentType, setEnvironmentType] = useState('');
   const [totalItemsCollected, setTotalItemsCollected] = useState(null);
   const [totalBagsCollected, setTotalBagsCollected] = useState(null);
@@ -71,6 +72,7 @@ function NewCleanupPage() {
         description,
         location,
         group_size: parseInt(groupSize.toString()),
+        duration: duration ? parseInt(duration) : null,
         env_type: environmentType,
         total_items: totalItemsCollected ? parseInt(totalItemsCollected) : null,
         total_bags: totalBagsCollected ? parseFloat(totalBagsCollected) : null,
@@ -141,7 +143,7 @@ function NewCleanupPage() {
           />
       </div>
 
-      <div className="form-group grid-2">
+      <div className="form-group grid-3">
           <div>
               <label htmlFor="environment-type">Environment Type*</label>
               <Select
@@ -155,7 +157,7 @@ function NewCleanupPage() {
                   required={true}
               />
           </div>
-          <div>
+          <div className='center-input'>
               <label htmlFor="groupSize">Group Size*</label>
               <input
                   id="groupSize"
@@ -167,6 +169,19 @@ function NewCleanupPage() {
                   min="1"
                   max="999"
                   required
+              />
+          </div>
+          <div>
+              <label htmlFor="duration">Duration (in minutes)</label>
+              <input
+                  id="duration"
+                  style={styles.number}
+                  type="number"
+                  name="duration"
+                  value={duration}
+                  onChange={(e) => setDuration(e.target.value)}
+                  min="1"
+                  max="600"
               />
           </div>
       </div>

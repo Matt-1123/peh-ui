@@ -416,6 +416,11 @@ button.text-danger:hover {
   background: #1f1f1f;
 }
 
+/* ------------- Cleanup Action Form --------------  */
+.center-input {
+  margin: 0 auto;
+}
+
 /* ------------- Buttons --------------  */
 
 .btn {
@@ -955,5 +960,10 @@ footer {
 
   .lead {
     font-size: 1rem;
+  }
+
+  /* Cleanup Form */
+  .center-input {
+    margin: 0;
   }
 }

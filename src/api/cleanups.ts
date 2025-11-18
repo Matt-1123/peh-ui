@@ -52,6 +52,7 @@ export const updateCleanup = async (
     description?: string; 
     location: string;
     groupSize: number;
+    duration: number;
     environmentType: string;
     totalItemsCollected?: number | null;
     totalBagsCollected?: number | null;

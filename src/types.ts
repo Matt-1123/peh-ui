@@ -7,6 +7,7 @@ export type Cleanup = {
   user_id: string;
   location: string;
   group_size: number;
+  duration: number;
   env_type: string;
   total_items: number;
   total_bags: number;
