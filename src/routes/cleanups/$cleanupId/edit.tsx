@@ -37,6 +37,7 @@ function CleanupEditPage() {
   const [description, setDescription] = useState(cleanup.description);
   const [location, setLocation] = useState(cleanup.location);
   const [groupSize, setGroupSize] = useState(cleanup.group_size);
+  const [duration, setDuration] = useState(cleanup.duration);
   const [environmentType, setEnvironmentType] = useState(cleanup.env_type);
   const [totalItemsCollected, setTotalItemsCollected] = useState(cleanup.total_items);
   const [totalBagsCollected, setTotalBagsCollected] = useState(cleanup.total_bags);
@@ -152,7 +153,7 @@ function CleanupEditPage() {
           />
       </div>
 
-      <div className="form-group grid-2">
+      <div className="form-group grid-3">
           <div>
               <label htmlFor="environment-type">Environment Type</label>
               <select name="environment-type" value={environmentType} onChange={(e) => setEnvironmentType(e.target.value)}>
@@ -174,6 +175,19 @@ function CleanupEditPage() {
                   onChange={(e) => setGroupSize(e.target.value)}
                   min="1"
                   max="9999"
+              />
+          </div>
+          <div>
+              <label htmlFor="duration">Duration (in minutes)</label>
+              <input
+                  id="duration"
+                  style={styles.number}
+                  type="number"
+                  name="duration"
+                  value={duration}
+                  onChange={(e) => setDuration(e.target.value)}
+                  min="1"
+                  max="600"
               />
           </div>
       </div>
