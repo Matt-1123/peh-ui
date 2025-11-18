@@ -102,6 +102,14 @@ const CleanupFeedItem = ({ cleanup }) => {
             {group_size}
           </p>
         </div>
+        {duration && (
+          <div className="mr">
+            <p className="font-sm">Duration</p>
+            <p>
+              {duration} minutes
+            </p>
+          </div>
+        )}
       </div>
     </div>
   )
