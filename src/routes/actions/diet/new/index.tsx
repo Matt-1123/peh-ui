@@ -132,7 +132,7 @@ function NewDietActionPage() {
       </div>
 
       <div className="form-group">
-        <h2>Foods Avoided</h2>
+        <p style={{ fontWeight: 'bold' }}>Foods Avoided</p>
         <Select
           // menuIsOpen={true} // keep open for styling in browser
           classNamePrefix="react-select"
@@ -140,6 +140,20 @@ function NewDietActionPage() {
           name="colors"
           options={foodsCO2e}
           className="basic-multi-select"
+          onChange={(selectedOptions) => {
+            // Update the checked state array based on selected options
+            const updatedCheckedState = foodsCO2e.map((food, index) => 
+              selectedOptions?.some(option => option.value === food.value) || false
+            );
+            setAvoidedFoodsCheckedState(updatedCheckedState);
+            
+            // Update foodsAvoided object if needed
+            const avoidedFoodsObj = selectedOptions?.reduce((acc, option) => {
+              acc[option.value] = option;
+              return acc;
+            }, {}) || {};
+            setFoodsAvoided(avoidedFoodsObj);
+          }}
           styles={{
             control: (baseStyles, state) => ({
               ...baseStyles,
