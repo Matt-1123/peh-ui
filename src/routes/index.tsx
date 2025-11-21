@@ -22,9 +22,9 @@ function HomePage() {
 
   return (
     <div className="container-narrow">
-      <div className="container-narrow bg-dark" style={{ textAlign: 'center', marginTop: '0' }}>
-        <h1>Welcome to Project Earth Health!</h1>
-        <p style={{ fontSize: '1.1rem' }}>Learn about and log environmentally friendly activities</p>
+      <div className="welcome-container container-narrow bg-dark" style={{ textAlign: 'center', marginTop: '0' }}>
+        <h1 style={{ lineHeight: '1.2' }}>Welcome to Project Earth Health!</h1>
+        <p className="mt-1" style={{ fontSize: '1.1rem' }}>Learn about and log environmentally friendly activities</p>
       </div>
       
       <div className="container-narrow bg-dark">

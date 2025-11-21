@@ -400,7 +400,12 @@ button.text-danger:hover {
   grid-template-columns: 2fr 3fr;
   grid-gap: 2rem;
 }
-/* -------------- Home Layout ------------*/
+/* -------------- Homepage Layout ------------*/
+
+.welcome-container {
+  line-height: 1.2;
+}
+
 .grid-2-5-2 {
   display: grid;
   grid-template-columns: 2fr 5fr 2fr;
@@ -960,6 +965,11 @@ footer {
 
   .lead {
     font-size: 1rem;
+  }
+
+  /* Welcome Home */
+  .welcome-container {
+    padding: 2rem 1.25rem;
   }
 
   /* Cleanup Form */
