@@ -21,19 +21,24 @@ function NewDietActionPage() {
   const [mealName, setMealName] = useState('');
   const [date, setDate] = useState('');
   const [description, setDescription] = useState('');
-  const [foodsAvoided, setFoodsAvoided] = useState({});
+  const [foodsAvoided, setFoodsAvoided] = useState([]);
   const [totalCO2Avoided, setTotalCO2Avoided] = useState(null);
   const [avoidedFoodsCheckedState, setAvoidedFoodsCheckedState] = useState(
     new Array(foodsCO2e.length).fill(false)
   );
 
-  const handleAvoidedFoodsOnChange = (position) => {
-    const updatedCheckedState = avoidedFoodsCheckedState.map((item, index) =>
-      index === position ? !item : item
-    );
+  // const handleAvoidedFoodsOnChange = (position) => {
+  //   const updatedCheckedState = avoidedFoodsCheckedState.map((item, index) =>
+  //     index === position ? !item : item
+  //   );
 
-    setAvoidedFoodsCheckedState(updatedCheckedState);
-  };
+  //   setAvoidedFoodsCheckedState(updatedCheckedState);
+  // };
+
+  useEffect(() => {
+    console.log('foodsAvoided: ', foodsAvoided)
+    console.log('foodsAvoided length: ', foodsAvoided.length)
+  }, [foodsAvoided]);
 
 
   const { mutateAsync, isPending } = useMutation({
@@ -54,7 +59,7 @@ function NewDietActionPage() {
   };
 
   const handleTypeInfo = () => {
-    setShowTypeInfoBox(!showBagInfoBox);
+    setShowTypeInfoBox(!showTypeInfoBox);
   }
 
   const submitForm = async (e: React.FormEvent) => {
@@ -141,18 +146,20 @@ function NewDietActionPage() {
           options={foodsCO2e}
           className="basic-multi-select"
           onChange={(selectedOptions) => {
+            console.log('selected options: ', selectedOptions)
+            
             // Update the checked state array based on selected options
             const updatedCheckedState = foodsCO2e.map((food, index) => 
               selectedOptions?.some(option => option.value === food.value) || false
             );
             setAvoidedFoodsCheckedState(updatedCheckedState);
             
-            // Update foodsAvoided object if needed
-            const avoidedFoodsObj = selectedOptions?.reduce((acc, option) => {
-              acc[option.value] = option;
-              return acc;
-            }, {}) || {};
-            setFoodsAvoided(avoidedFoodsObj);
+            // const avoidedFoodsArr = selectedOptions?.reduce((acc, option) => {
+            //   acc[option.value] = option;
+            //   return acc;
+            // }, []) || [];
+
+            setFoodsAvoided(selectedOptions);
           }}
           styles={{
             control: (baseStyles, state) => ({
@@ -166,28 +173,11 @@ function NewDietActionPage() {
             })
           }}
         />
-        {/* <ul>
-          {foodsCO2e.map(({ name, kgCO2ePerKg }, index) => {
-            return (
-              <li key={index}>
-                <div>
-                  <div>
-                    <input
-                      type="checkbox"
-                      id={`avoided-food-${index}`}
-                      name={name}
-                      value={name}
-                      checked={avoidedFoodsCheckedState[index]}
-                      onChange={() => handleAvoidedFoodsOnChange(index)}
-                    />
-                    <label htmlFor={`avoided-food-${index}`}>{name}</label>
-                  </div>
-                  <div>{kgCO2ePerKg} CO2e per kg</div>
-                </div>
-              </li>
-            )
-          })}
-        </ul> */}
+        {foodsAvoided.length > 0 && (
+          <div>
+            <p className='mt-1' style={{ fontWeight: 'bold' }}>Amount Avoided</p>
+          </div>
+        )}
       </div>
 
       <div>
