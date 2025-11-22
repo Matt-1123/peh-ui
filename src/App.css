@@ -404,6 +404,8 @@ button.text-danger:hover {
 
 .welcome-container {
   line-height: 1.2;
+  border: 2px solid #90b36d;
+  /* border: 3px solid #344620; */
 }
 
 .grid-2-5-2 {
