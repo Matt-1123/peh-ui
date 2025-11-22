@@ -101,7 +101,7 @@ function CleanupDetailsPage() {
       </div>
       <div className="container-narrow bg-dark">
         <p>Group size: {cleanup.group_size}</p>
-        <p>Duration: {cleanup.duration} minutes</p>
+        {cleanup.duration && (<p>Duration: {cleanup.duration} minutes</p>)}
         <p>Environment type: {envType}</p>
         <p>Location: {cleanup.location}</p>
         {/* CO2e prevented:{" "}
