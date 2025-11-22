@@ -74,6 +74,7 @@ function CleanupEditPage() {
         description,
         location,
         group_size: parseInt(groupSize.toString()),
+        duration: duration ? parseInt(duration) : null,
         env_type: environmentType,
         total_items: totalItemsCollected ? parseInt(totalItemsCollected) : null,
         total_bags: totalBagsCollected ? parseFloat(totalBagsCollected) : null,

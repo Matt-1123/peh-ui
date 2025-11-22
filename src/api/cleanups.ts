@@ -24,6 +24,7 @@ export const createCleanup = async (newCleanup: {
   description?: string; 
   location: string;
   groupSize: number;
+  duration: number;
   environmentType: string;
   totalItemsCollected?: number | null;
   totalBagsCollected?: number | null;
