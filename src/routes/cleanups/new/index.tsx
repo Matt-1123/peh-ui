@@ -8,6 +8,7 @@ import { toast } from 'react-toastify';
 import { createCleanup } from '@/api/cleanups';
 import { RiInformation2Line } from 'react-icons/ri';
 import { SearchBox  } from '@mapbox/search-js-react';
+import getTodaysDate from '@/utils/getTodaysDate'
 
 export const Route = createFileRoute('/cleanups/new/')({
   component: NewCleanupPage,
@@ -17,7 +18,7 @@ function NewCleanupPage() {
   const navigate = useNavigate();
   
   const [title, setTitle] = useState('');
-  const [date, setDate] = useState('');
+  const [date, setDate] = useState(getTodaysDate());
   const [description, setDescription] = useState('');
   const [location, setLocation] = useState('');
   const [groupSize, setGroupSize] = useState(1);
@@ -34,15 +35,6 @@ function NewCleanupPage() {
       toast.success('Cleanup created successfully!');
     }
   });
-
-  // Get today's date in YYYY-MM-DD format for the html date input's max attribute
-  const getTodayDate = () => {
-    const today = new Date();
-    const year = today.getFullYear();
-    const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
-    const day = String(today.getDate()).padStart(2, '0');
-    return `${year}-${month}-${day}`;
-  };
 
   const environmentTypeOptions = [
     { value: "", label: "Select an environment type", disabled: true },
@@ -119,7 +111,7 @@ function NewCleanupPage() {
               id="date"
               type="date"
               name="date"
-              max={getTodayDate()}
+              max={getTodaysDate()}
               value={date}
               onChange={(e) => setDate(e.target.value)}
               required

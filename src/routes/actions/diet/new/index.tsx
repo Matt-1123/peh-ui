@@ -8,6 +8,7 @@ import { createDietActionMeal } from '@/api/dietActions';
 import { RiInformation2Line } from 'react-icons/ri';
 import foodsCO2e from '@/utils/foodsCO2e'
 import Select from 'react-select';
+import getTodaysDate from '@/utils/getTodaysDate'
 
 export const Route = createFileRoute('/actions/diet/new/')({
   component: NewDietActionPage,
@@ -19,7 +20,7 @@ function NewDietActionPage() {
   const [actionType, setActionType] = useState('');
   const [showTypeInfoBox, setShowTypeInfoBox] = useState(false)
   const [mealName, setMealName] = useState('');
-  const [date, setDate] = useState('');
+  const [date, setDate] = useState(getTodaysDate());
   const [description, setDescription] = useState('');
   const [foodsAvoided, setFoodsAvoided] = useState([]);
   const [totalCO2Avoided, setTotalCO2Avoided] = useState(null);
