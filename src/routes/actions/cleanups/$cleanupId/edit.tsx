@@ -48,7 +48,7 @@ function CleanupEditPage() {
   const { mutateAsync: deleteMutate, isPending: isPendingDelete } = useMutation({
     mutationFn: () => deleteCleanup(cleanupId),
     onSuccess: () => {
-      navigate({ to: '/cleanups' });
+      navigate({ to: '/actions/cleanups' });
     },
   });
 
@@ -80,7 +80,7 @@ function CleanupEditPage() {
         total_bags: totalBagsCollected ? parseFloat(totalBagsCollected) : null,
       }),
     onSuccess: () => {
-      navigate({ to: '/cleanups/$cleanupId', params: { cleanupId } });
+      navigate({ to: '/actions/cleanups/$cleanupId', params: { cleanupId } });
     },
   });
 
@@ -91,7 +91,7 @@ function CleanupEditPage() {
   
   return (<>
     <Link
-      to='/cleanups/$cleanupId'
+      to='/actions/cleanups/$cleanupId'
       params={{ cleanupId }}
     >
       ← Back To Cleanup

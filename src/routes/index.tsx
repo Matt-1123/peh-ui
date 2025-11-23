@@ -32,7 +32,7 @@ function HomePage() {
         
         <ul>
           {cleanups.map(cleanup => (
-            <Link to='/cleanups/$cleanupId' params={{cleanupId: cleanup.id.toString()}}>
+            <Link to='/actions/cleanups/$cleanupId' params={{cleanupId: cleanup.id.toString()}}>
               <div className='latest-action-item'>
                 <div
                   className="grid mb"
@@ -53,7 +53,7 @@ function HomePage() {
           ))}
         </ul>
         
-        <Link to='/cleanups'>
+        <Link to='/actions/cleanups'>
           <div className="btn btn-primary--dark mt-1">View All Cleanups</div>
         </Link>
         

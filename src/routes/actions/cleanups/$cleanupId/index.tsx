@@ -41,7 +41,7 @@ function CleanupDetailsPage() {
   const { mutateAsync: deleteMutate, isPending } = useMutation({
     mutationFn: () => deleteCleanup(cleanupId),
     onSuccess: () => {
-      navigate({ to: '/cleanups' });
+      navigate({ to: '/actions/cleanups' });
     },
   });
 
@@ -68,7 +68,7 @@ function CleanupDetailsPage() {
           <>
             <div>
               <button className="mr-1">
-                <Link to='/cleanups/$cleanupId/edit' params={{cleanupId}}>
+                <Link to='/actions/cleanups/$cleanupId/edit' params={{cleanupId}}>
                   <FaEdit style={{ color: "#999" }} /> Edit
                 </Link>
               </button>

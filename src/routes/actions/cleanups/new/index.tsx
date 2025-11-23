@@ -31,7 +31,7 @@ function NewCleanupPage() {
   const { mutateAsync, isPending } = useMutation({
     mutationFn: createCleanup,
     onSuccess: () => {
-      navigate({to: '/cleanups'});
+      navigate({to: '/actions/cleanups'});
       toast.success('Cleanup created successfully!');
     }
   });
