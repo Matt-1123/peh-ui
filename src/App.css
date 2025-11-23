@@ -428,6 +428,30 @@ button.text-danger:hover {
   margin: 0 auto;
 }
 
+/* ------------- Diet Action Form --------------  */
+#amountAvoidedTableContainer {
+  width: 100%;
+  background-color: #fff;
+  padding: 1rem;
+  border-radius: 8px;
+  color: var(--dark-color)
+}
+
+#amountAvoidedTableContainer table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#amountAvoidedTableContainer td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+#amountAvoidedTableContainer tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
 /* ------------- Buttons --------------  */
 
 .btn {
@@ -602,7 +626,7 @@ button {
   font-weight: bold;
 }
 
-table th,
+/* table th,
 table td {
   padding: 1rem;
   text-align: left;
@@ -610,7 +634,7 @@ table td {
 
 table th {
   background: var(--light-color);
-}
+} */
 
 /* Remove magnifying glass icon from Mapbox SearchBox component - applies to all classes ending with "--SearchIcon"*/
 [class$="--SearchIcon"] {

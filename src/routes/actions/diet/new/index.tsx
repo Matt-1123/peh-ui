@@ -177,6 +177,25 @@ function NewDietActionPage() {
         {foodsAvoided.length > 0 && (
           <div>
             <p className='mt-1' style={{ fontWeight: 'bold' }}>Amount Avoided</p>
+            <div id='amountAvoidedTableContainer'>
+              <table>
+                <tr>
+                  <th>Food</th>
+                  <th>Amount</th>
+                  <th>Unit</th>
+                </tr>
+                <tr>
+                  <td>Beef</td>
+                  <td>1</td>
+                  <td>Servings</td>
+                </tr>
+                <tr>
+                  <td>Cheese</td>
+                  <td>3</td>
+                  <td>Ounces</td>
+                </tr>
+              </table>
+            </div>
           </div>
         )}
       </div>
