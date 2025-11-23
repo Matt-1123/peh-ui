@@ -25,7 +25,7 @@ function SignupComponent() {
             setAccessToken(data.accessToken);
             // @ts-ignore
             setUser(data.user);
-            navigate({to: '/cleanups'});
+            navigate({to: '/'});
             toast.success('User registration successful!');
         },
         onError: (err) => {
