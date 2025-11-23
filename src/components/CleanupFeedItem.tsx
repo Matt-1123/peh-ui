@@ -1,6 +1,7 @@
 // @ts-nocheck
 import { Link } from '@tanstack/react-router';
-import { FaEdit, FaTrash, FaEllipsisH } from 'react-icons/fa'
+import { FaEdit, FaEllipsisH } from 'react-icons/fa'
+import { RiExternalLinkLine } from "react-icons/ri";
 import { useAuth } from '@/context/AuthContext';
 import { useQuery } from '@tanstack/react-query'
 import { fetchUser } from '@/api/user'
@@ -49,13 +50,12 @@ const CleanupFeedItem = ({ cleanup }) => {
         className="flex"
         style={{ alignItems: "center", marginBottom: ".25em" }}
       >
-        <FaTrash className="icon-primary" />
         <h3
           // onClick={handleTitleLink}
-          className="font-md ml-1 title"
+          className="font-md title"
           style={{ cursor: "pointer" }}
         >
-          <Link to='/actions/cleanups/$cleanupId' params={{cleanupId: cleanup.id.toString()}}>{cleanup.title}</Link>
+          <Link to='/actions/cleanups/$cleanupId' params={{cleanupId: cleanup.id.toString()}}>{cleanup.title} <RiExternalLinkLine style={{ color: '#888', fontSize: '1rem' }} /></Link>
         </h3>
       </div>
       
