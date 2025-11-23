@@ -728,6 +728,7 @@ table th {
 
 .nav-link {
   position: relative;
+  cursor: pointer;
 }
 
 .submenu {

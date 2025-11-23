@@ -16,7 +16,7 @@ const cleanupQueryOptions = (cleanupId: string) => queryOptions({
   select: (data) => data[0]
 })
 
-export const Route = createFileRoute('/cleanups/$cleanupId/')({
+export const Route = createFileRoute('/actions/cleanups/$cleanupId/')({
   component: CleanupDetailsPage,
   loader: async ({ params, context: { queryClient } }) => {
     return queryClient.ensureQueryData(cleanupQueryOptions(params.cleanupId))
@@ -73,7 +73,7 @@ function CleanupDetailsPage() {
                 </Link>
               </button>
               <button disabled={ isPending } onClick={handleDelete}>
-                <FaTrash style={{ color: "#dc3545" }} /> { isPending ? 'Deleting...' : 'Delete' }
+                <FaTrash style={{ color: "#dc3545" }} /> { isPending ? "Deleting..." : "Delete" }
               </button>
             </div>
           </>
@@ -88,7 +88,7 @@ function CleanupDetailsPage() {
       >
         <img src={oakLeaf} alt="" style={styles.avatar} />
         <div style={styles.meta}>
-          <p className="font-sm">{cleanupUser?.[0]?.username || 'Loading...'}</p>
+          <p className="font-sm">{cleanupUser?.[0]?.username || "Loading..."}</p>
           <p className="font-sm">{dateConverter(cleanup.date)}</p>
         </div>
       </div>

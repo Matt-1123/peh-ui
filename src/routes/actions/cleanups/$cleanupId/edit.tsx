@@ -1,64 +1,74 @@
 // @ts-nocheck
-import { useEffect, useState } from 'react';
-import { createFileRoute, useNavigate } from '@tanstack/react-router'
-import type { Cleanup } from '@/types';
-import {useMutation} from '@tanstack/react-query';
-import Select from "react-select";
-import { toast } from 'react-toastify';
-import { createCleanup } from '@/api/cleanups';
+import { createFileRoute, useNavigate, Link } from '@tanstack/react-router'
+import {useState} from 'react';
+import {
+  queryOptions,
+  useSuspenseQuery,
+  useMutation,
+} from '@tanstack/react-query';
+import { fetchCleanup, deleteCleanup, updateCleanup } from '@/api/cleanups';
 import { RiInformation2Line } from 'react-icons/ri';
 import { SearchBox  } from '@mapbox/search-js-react';
-import getTodaysDate from '@/utils/getTodaysDate'
 
-export const Route = createFileRoute('/cleanups/new/')({
-  component: NewCleanupPage,
-})
-
-function NewCleanupPage() {
-  const navigate = useNavigate();
-  
-  const [title, setTitle] = useState('');
-  const [date, setDate] = useState(getTodaysDate());
-  const [description, setDescription] = useState('');
-  const [location, setLocation] = useState('');
-  const [groupSize, setGroupSize] = useState(1);
-  const [duration, setDuration] = useState(null);
-  const [environmentType, setEnvironmentType] = useState('');
-  const [totalItemsCollected, setTotalItemsCollected] = useState(null);
-  const [totalBagsCollected, setTotalBagsCollected] = useState(null);
-  const [showBagInfoBox, setShowBagInfoBox] = useState(false)
-
-  const { mutateAsync, isPending } = useMutation({
-    mutationFn: createCleanup,
-    onSuccess: () => {
-      navigate({to: '/cleanups'});
-      toast.success('Cleanup created successfully!');
-    }
+const cleanupQueryOptions = (cleanupId: string) =>
+  queryOptions({
+    queryKey: ['cleanup', cleanupId],
+    queryFn: () => fetchCleanup(cleanupId),
+    // @ts-ignore
+    select: (data) => data[0]
   });
 
-  const environmentTypeOptions = [
-    { value: "", label: "Select an environment type", disabled: true },
-    { value: "path", label: "Path" },
-    { value: "park", label: "Park" },
-    { value: "beach", label: "Beach" },
-    { value: "other", label: "Other" },
-  ];
+export const Route = createFileRoute('/actions/cleanups/$cleanupId/edit')({
+  component: CleanupEditPage,
+  loader: async ({ params, context: { queryClient } }) => {
+    return queryClient.ensureQueryData(cleanupQueryOptions(params.cleanupId));
+  },
+})
+
+function CleanupEditPage() {
+  const { cleanupId } = Route.useParams();
+  const { data: cleanup } = useSuspenseQuery(cleanupQueryOptions(cleanupId));
+
+  console.log(cleanup)
+  const dateOnly = cleanup.date.slice(0, 10);
+
+  const [title, setTitle] = useState(cleanup.title);
+  const [date, setDate] = useState(dateOnly);
+  const [description, setDescription] = useState(cleanup.description);
+  const [location, setLocation] = useState(cleanup.location);
+  const [groupSize, setGroupSize] = useState(cleanup.group_size);
+  const [duration, setDuration] = useState(cleanup.duration);
+  const [environmentType, setEnvironmentType] = useState(cleanup.env_type);
+  const [totalItemsCollected, setTotalItemsCollected] = useState(cleanup.total_items);
+  const [totalBagsCollected, setTotalBagsCollected] = useState(cleanup.total_bags);
+  const [showBagInfoBox, setShowBagInfoBox] = useState(false)
+
+  const navigate = useNavigate();
+  
+  const { mutateAsync: deleteMutate, isPending: isPendingDelete } = useMutation({
+    mutationFn: () => deleteCleanup(cleanupId),
+    onSuccess: () => {
+      navigate({ to: '/cleanups' });
+    },
+  });
 
   const handleBagInfo = () => {
     setShowBagInfoBox(!showBagInfoBox);
   }
 
-  const submitForm = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleDelete = async () => {
+    const confirmDelete = window.confirm(
+      'Are you sure you want to delete this cleanup?'
+    );
 
-    if (!title || !date || !location || !environmentType) {
-      toast.error('Please fill in all required fields.');
-      window.alert('Please fill in all required fields - title, date, location, environment type')
-      return;
+    if (confirmDelete) {
+      await deleteMutate();
     }
+  };
 
-    try {
-      await mutateAsync({
+  const { mutateAsync: editMutate } = useMutation({
+    mutationFn: () =>
+      updateCleanup(cleanupId, {
         title,
         date,
         description,
@@ -68,16 +78,26 @@ function NewCleanupPage() {
         env_type: environmentType,
         total_items: totalItemsCollected ? parseInt(totalItemsCollected) : null,
         total_bags: totalBagsCollected ? parseFloat(totalBagsCollected) : null,
-      });
-    } catch (error) {
-      console.error('Error creating cleanup:', error);
-      toast.error('Failed to create cleanup. Please try again.');
-    }
-  }
+      }),
+    onSuccess: () => {
+      navigate({ to: '/cleanups/$cleanupId', params: { cleanupId } });
+    },
+  });
 
-  return (
-    <form className="container-narrow bg-dark" onSubmit={submitForm}>
-      <h2 className="text-primary font-lg">Cleanup Action</h2>
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    await editMutate();
+  };
+  
+  return (<>
+    <Link
+      to='/cleanups/$cleanupId'
+      params={{ cleanupId }}
+    >
+      ← Back To Cleanup
+    </Link>
+    <form onSubmit={handleSubmit} className="container-narrow bg-dark" >
+      <h1 className="text-primary font-lg">Edit Cleanup</h1>
       
       <div className="form-group">
           <label htmlFor="title">Title*</label>
@@ -111,7 +131,6 @@ function NewCleanupPage() {
               id="date"
               type="date"
               name="date"
-              max={getTodaysDate()}
               value={date}
               onChange={(e) => setDate(e.target.value)}
               required
@@ -137,30 +156,26 @@ function NewCleanupPage() {
 
       <div className="form-group grid-3">
           <div>
-              <label htmlFor="environment-type">Environment Type*</label>
-              <Select
-                  styles={customStyles}
-                  // defaultInputValue={}
-                  onChange={(selectedOption) => {
-                      setEnvironmentType(selectedOption.value);
-                  }}
-                  options={environmentTypeOptions}
-                  placeholder="Choose an environment type"
-                  required={true}
-              />
+              <label htmlFor="environment-type">Environment Type</label>
+              <select name="environment-type" value={environmentType} onChange={(e) => setEnvironmentType(e.target.value)}>
+                <option value="">Select an option</option>
+                <option value="path">Path</option>
+                <option value="park">Park</option>
+                <option value="beach">Beach</option>
+                <option value="other">Other</option>
+              </select>
           </div>
-          <div className='center-input'>
-              <label htmlFor="groupSize">Group Size*</label>
+          <div>
+              <label htmlFor="groupSize">Group Size</label>
               <input
                   id="groupSize"
-                  style={styles.number}
                   type="number"
+                  style={styles.number}
                   name="groupSize"
                   value={groupSize}
                   onChange={(e) => setGroupSize(e.target.value)}
                   min="1"
-                  max="999"
-                  required
+                  max="9999"
               />
           </div>
           <div>
@@ -183,25 +198,25 @@ function NewCleanupPage() {
               <label htmlFor="totalItemsCollected">Total Items Collected</label>
               <input
                   id="totalItemsCollected"
-                  style={styles.number}
                   type="number"
+                  style={styles.number}
                   name="totalItemsCollected"
-                  // value={totalItemsCollected}
+                  value={totalItemsCollected}
                   onChange={(e) => setTotalItemsCollected(e.target.value)}
                   min="0"
                   max="99999"
               />
           </div>
           <div>
-              <label htmlFor="totalBagsCollected">Total Bags Collected <RiInformation2Line onClick={handleBagInfo} style={{ cursor: 'pointer', position: 'relative' }}/></label>
+              <label htmlFor="totalBagsCollected">Total Bags Collected <RiInformation2Line onClick={handleBagInfo} style={{ cursor: "pointer", position: "relative" }} /></label>
               {showBagInfoBox && <div className="infoBox">Please enter 0.25 increments. Bags are calculated based on a standard 13 gallon size. For 30 gallon bags, enter 2.25 for a full bag. For a 5 gallon bag, round up to 0.5.</div>}
               <input
                   id="totalBagsCollected"
-                  style={styles.number}
                   type="number"
                   step="0.25"
+                  style={styles.number}
                   name="totalBagsCollected"
-                  // value={totalBagsCollected}
+                  value={totalBagsCollected}
                   onChange={(e) => setTotalBagsCollected(e.target.value)}
                   min="0"
                   max="999"
@@ -212,22 +227,23 @@ function NewCleanupPage() {
       <div>
           <input
               type="submit"
-              value="Submit"
-              disabled={isPending}
+              value="Update Cleanup"
+              disabled={isPendingDelete}
               className="btn btn-primary--dark btn-block"
           />
+      </div>
+      <div>
+          <button
+              type="button"
+              onClick={handleDelete}
+              disabled={isPendingDelete}
+              className="btn btn-danger btn-block"
+          >{ isPendingDelete ? 'Deleting...' : 'Delete' }</button>
       </div>
 
       <p className="font-sm">* required</p>
     </form>
-  )
-}
-
-const customStyles = {
-    option: (provided, state) => ({
-        ...provided,
-        color: "#000",
-    }),
+  </>)
 }
 
 const styles = {

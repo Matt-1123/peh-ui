@@ -57,20 +57,20 @@ const Header = () => {
               <span className="nav-link">Actions <FaChevronDown style={{ verticalAlign: '-0.125em' }} /></span>
               <ul className="submenu" style={{ visibility: openSubmenu ? 'visible' : 'hidden' }}>
                 <li className="submenu-link">
-                  <Link to='/cleanups' activeOptions={{ exact: true }}>All Cleanups</Link>
+                  <Link to='/actions/cleanups' activeOptions={{ exact: true }}>All Cleanups</Link>
                 </li>
                 {user && (
                   <li className="submenu-link">
-                    <Link to='/cleanups/new'>+ New Cleanup</Link>
+                    <Link to='/actions/cleanups/new'>+ New Cleanup</Link>
                   </li>
                 )}
                 <li className="submenu-link">
-                  {/* <Link to='/plastic-swaps' activeOptions={{ exact: true }}>All Plastic Swaps</Link> */}
+                  {/* <Link to='/actions/plastic-swaps' activeOptions={{ exact: true }}>All Plastic Swaps</Link> */}
                   <p style={{ marginLeft: "0.7rem", lineHeight: "1.2" }}>All Plastic Swaps (Coming Soon)</p>
                 </li>
                 {user && (
                   <li className="submenu-link">
-                    {/* <Link to='/plastic-swaps/new'>+ New Plastic Swap</Link> */}
+                    {/* <Link to='/actions/plastic-swaps/new'>+ New Plastic Swap</Link> */}
                     <p style={{ marginLeft: "0.7rem", lineHeight: "1.2" }}>+ New Plastic Swap (Coming Soon)</p>
                   </li>
                 )}
