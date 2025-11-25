@@ -179,21 +179,56 @@ function NewDietActionPage() {
             <p className='mt-1' style={{ fontWeight: 'bold' }}>Amount Avoided</p>
             <div id='amountAvoidedTableContainer'>
               <table>
-                <tr>
-                  <th>Food</th>
-                  <th>Amount</th>
-                  <th>Unit</th>
-                </tr>
-                <tr>
-                  <td>Beef</td>
-                  <td>1</td>
-                  <td>Servings</td>
-                </tr>
-                <tr>
-                  <td>Cheese</td>
-                  <td>3</td>
-                  <td>Ounces</td>
-                </tr>
+                <thead>
+                  <tr>
+                    <th>Food</th>
+                    <th>Amount</th>
+                    <th>Unit</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {foodsAvoided.map((food) => (
+                    <tr>
+                      <td>{food.label}</td>
+                      <td>
+                        <input
+                          type="number"
+                          value={food.amount || ''}
+                          onChange={(e) => {
+                            const updatedFoods = foodsAvoided.map((f) =>
+                              f.value === food.value
+                                ? { ...f, amount: e.target.value }
+                                : f
+                            );
+                            setFoodsAvoided(updatedFoods);
+                          }}
+                          style={{ width: '100%', padding: '4px' }}
+                          min="0"
+                          step="0.1"
+                        />
+                      </td>
+                      <td>
+                        <select
+                          value={food.unit || ''}
+                          onChange={(e) => {
+                            const updatedFoods = foodsAvoided.map((f) =>
+                              f.value === food.value
+                                ? { ...f, unit: e.target.value }
+                                : f
+                            );
+                            setFoodsAvoided(updatedFoods);
+                          }}
+                          style={{ width: '100%', padding: '4px' }}
+                        >
+                          <option value="" disabled>Select unit</option>
+                          <option value="servings">Servings</option>
+                          <option value="pounds">Pounds</option>
+                          <option value="ounces">Ounces</option>
+                        </select>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
               </table>
             </div>
           </div>
