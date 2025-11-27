@@ -78,6 +78,7 @@ function NewCleanupPage() {
   return (
     <form className="container-narrow bg-dark" onSubmit={submitForm}>
       <h2 className="text-primary font-lg">Cleanup Action</h2>
+      <p>A cleanup action is any act of picking up trash in the environment. Be sure to wear gloves to protect your hands. Using a garbage picker can also help grab out of reach items, and can be easier on your back.</p>
       
       <div className="form-group">
           <label htmlFor="title">Title*</label>
