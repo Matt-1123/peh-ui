@@ -6,27 +6,16 @@ export const Route = createFileRoute('/about/')({
 
 function AboutComponent() {
   return <div className="container-narrow">
-    <h1>About PEH</h1>
+    <h1>About Project Earth Health</h1>
     <hr />
     <p className="my-1">
-      Project Earth Health is a platform where you can log
-      environmentally-friendly actions. Currently you can log a cleanup action, where you can specify the type of environment you cleaned (e.g. park or beach), and optionally the number of items and number of bags of trash collected.
+      Project Earth Health is a platform where users can learn about and log environmentally friendly actions. Currently you can log cleanup and diet actions, and future updates will add plastic swaps, travel, and custom actions, likely among others.
     </p>
-    <h2>Future Updates/Additions</h2>
-    <hr />
-    <ul>
-      <li className="ml-1 my" style={{ listStyleType: "circle" }}>
-        Travel will be added soon as a Travel Action option.
-      </li>
-      <li className="ml-1 my" style={{ listStyleType: "circle" }}>
-        New action types will be added after Travel Action is complete. The
-        next Action Type will be a Diet Action, in which you will be able to
-        calculate the impacts of choosing more environmentally-friendly food
-        options, such as replacing beef with chicken for a month, or going
-        meat and cheese free for a week.
-      </li>
-    </ul>
-
+    <p>
+      This app focuses on individual and small-scale actions. The goal is to help users learn news ways they can make a positive impact in their day to day life, make consistent and long lasting changes to their lifestyles, and inspire others to do the same.</p>
+    <p>
+      Climate change is a complex problem, and individual action can feel miniscule much or all of the time. However, a change in mindset can make positive changes, from ecological to psychological. 
+    </p>
     <h2>Attributions</h2>
     <hr />
     <h3 className="mt-1">Leaf icon images:</h3>
