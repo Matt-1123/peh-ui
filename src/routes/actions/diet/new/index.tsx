@@ -88,7 +88,7 @@ function NewDietActionPage() {
   return (
     <form className="container-narrow bg-dark" onSubmit={submitForm}>
       <h2 className="text-primary font-lg">Diet Action</h2>
-      <p>A diet action can be anything from a single environmentally friendly meal to a diet change. Record a meal, or for bigger changes, log how long you've avoided certain foods or set a goal.</p>
+      <p className='mb-1'>A diet action can be anything from a single environmentally friendly meal to a diet change. Record a meal, or for bigger changes, log how long you've avoided certain foods or set a goal.</p>
       <p>When logging a meal, you can optionally add which foods you've avoided. The dropdown list contains the foods with the highest carbon emissions associated with their production. Enter the amount and unit of each food to determine the amount of CO2e prevented.</p>
       
       <div className="form-group">
@@ -140,7 +140,7 @@ function NewDietActionPage() {
       </div>
 
       <div className="form-group">
-        <p style={{ fontWeight: 'bold' }}>Foods Avoided</p>
+        <p style={{ fontWeight: 'bold' }}>Foods Avoided</p>        
         <Select
           // menuIsOpen={true} // keep open for styling in browser
           classNamePrefix="react-select"
@@ -157,12 +157,15 @@ function NewDietActionPage() {
             );
             setAvoidedFoodsCheckedState(updatedCheckedState);
             
-            // const avoidedFoodsArr = selectedOptions?.reduce((acc, option) => {
-            //   acc[option.value] = option;
-            //   return acc;
-            // }, []) || [];
+            // Preserve existing amount and unit values when updating selected foods
+            const updatedFoodsAvoided = selectedOptions?.map(option => {
+              const existingFood = foodsAvoided.find(f => f.value === option.value);
+              return existingFood 
+                ? { ...option, amount: existingFood.amount, unit: existingFood.unit }
+                : option;
+            }) || [];
 
-            setFoodsAvoided(selectedOptions);
+            setFoodsAvoided(updatedFoodsAvoided);
           }}
           styles={{
             control: (baseStyles, state) => ({
