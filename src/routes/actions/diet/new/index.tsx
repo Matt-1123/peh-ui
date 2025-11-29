@@ -88,6 +88,8 @@ function NewDietActionPage() {
   return (
     <form className="container-narrow bg-dark" onSubmit={submitForm}>
       <h2 className="text-primary font-lg">Diet Action</h2>
+      <p>A diet action can be anything from a single environmentally friendly meal to a diet change. Record a meal, or for bigger changes, log how long you've avoided certain foods or set a goal.</p>
+      <p>When logging a meal, you can optionally add which foods you've avoided. The dropdown list contains the foods with the highest carbon emissions associated with their production. Enter the amount and unit of each food to determine the amount of CO2e prevented.</p>
       
       <div className="form-group">
           <label htmlFor="actionType">Select a diet action type: *</label>
