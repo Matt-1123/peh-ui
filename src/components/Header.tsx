@@ -64,6 +64,16 @@ const Header = () => {
                     <Link to='/actions/cleanups/new'>+ New Cleanup</Link>
                   </li>
                 )}
+                <hr className='mt-1'/>
+                <li className="submenu-link">
+                  <Link to='/actions/diet' activeOptions={{ exact: true }}>All Diet Actions</Link>
+                </li>
+                {user && (
+                  <li className="submenu-link">
+                    <Link to='/actions/diet/new'>+ New Diet Action</Link>
+                  </li>
+                )}
+                <hr className='mt-1'/>
                 <li className="submenu-link">
                   {/* <Link to='/actions/plastic-swaps' activeOptions={{ exact: true }}>All Plastic Swaps</Link> */}
                   <p style={{ marginLeft: "0.7rem", lineHeight: "1.2" }}>All Plastic Swaps (Coming Soon)</p>

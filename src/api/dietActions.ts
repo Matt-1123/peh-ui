@@ -22,7 +22,7 @@ export const createDietActionMeal = async (newDietActionMeal: {
   mealName: string;
   date: string;
   description?: string;
-  foodsAvoided?: object;
+  foodsAvoided?: Array<any>;
   totalCO2Avoided?: number | null;
 }): Promise<DietActionMeal> => {
   let jsDate = new Date(); // Current date and time

@@ -20,7 +20,7 @@ const MobileMenu = ({ openMobileMenu, setOpenMobileMenu, user, handleLogout }) =
             </li>
             <li>
                 <span className="nav-link">Actions</span>
-                <ul className='ml-1'>
+                <ul className='ml-1 mb-1'>
                     <li>
                         <Link to='/actions/cleanups' onClick={handleCloseMenu} activeOptions={{ exact: true }}>All Cleanups</Link>
                     </li>
@@ -29,6 +29,16 @@ const MobileMenu = ({ openMobileMenu, setOpenMobileMenu, user, handleLogout }) =
                             <Link to='/actions/cleanups/new' onClick={handleCloseMenu}>+ New Cleanup</Link>
                         </li>
                     )}
+                    <hr className='my-1'/>
+                    <li>
+                        <Link to='/actions/diet' onClick={handleCloseMenu} activeOptions={{ exact: true }}>All Diet Actions</Link>
+                    </li>
+                    {user && (
+                        <li>
+                            <Link to='/actions/diet/new' onClick={handleCloseMenu}>+ New Diet Action</Link>
+                        </li>
+                    )}
+                    <hr className='my-1'/>
                     <li>
                         {/* <Link to='/actions/plastic-swaps' onClick={handleCloseMenu} activeOptions={{ exact: true }}>All Plastic Swaps</Link> */}
                         <p style={{ lineHeight: "1.2" }}>All Plastic Swaps (Coming Soon)</p>
@@ -48,18 +58,18 @@ const MobileMenu = ({ openMobileMenu, setOpenMobileMenu, user, handleLogout }) =
             </li>
             {user && (
                 <li>
-                    <Link to='/profile' className="nav-link" onClick={handleCloseMenu}>My Profile</Link>
+                    <Link to='/profile' className="nav-link mb-1" onClick={handleCloseMenu}>My Profile</Link>
                 </li>
             )}
             {
                 !user ? (
                 <>
-                    <li>
+                    <li style={{ marginTop: '1rem' }}>
                         <Link to="/signup" className="nav-link" onClick={handleCloseMenu}>
                             <button className="btn btn-primary">Sign Up</button>
                         </Link>
                     </li>
-                    <li>
+                    <li style={{ marginTop: '1rem' }}>
                         <Link to="/login" className="nav-link" onClick={handleCloseMenu}>
                             <button className="btn">Log In</button>
                         </Link>
@@ -68,7 +78,7 @@ const MobileMenu = ({ openMobileMenu, setOpenMobileMenu, user, handleLogout }) =
                 ) : (
                 <>
                     <li>
-                        <button onClick={handleCloseMenu, handleLogout} className="btn btn-danger nav-link">Log Out</button>
+                        <button onClick={handleCloseMenu, handleLogout} className="btn btn-danger nav-link my-1">Log Out</button>
                     </li>
                 </>
                 )

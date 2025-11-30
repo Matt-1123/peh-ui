@@ -94,7 +94,7 @@ function NewDietActionPage() {
       <div className="form-group">
           <label htmlFor="actionType">Select a diet action type: *</label>
           <select id="actionSelect" value={actionType} onChange={(e) => setActionType(e.target.value)}>
-              <option value="">-- Choose an option --</option>
+              <option value="" disabled>-- Choose an option --</option>
               <option value="meal">Meal</option>
               <option value="goal" disabled>Goal (coming soon)</option>
               <option value="log" disabled>Log (coming soon)</option>
