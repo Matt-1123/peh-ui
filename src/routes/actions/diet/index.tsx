@@ -1,6 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 import {queryOptions, useSuspenseQuery} from '@tanstack/react-query'
 import { fetchDietActionMeals } from '@/api/dietActions'
+import DietActionFeedItem from '@/components/DietActionFeedItem'
 const dietActionsQueryOptions = () => queryOptions({
   queryKey: ['dietActions'],
   queryFn: () => fetchDietActionMeals(),
@@ -23,9 +24,11 @@ export const Route = createFileRoute('/actions/diet/')({
 function RouteComponent() {
   const { data: dietActions } = useSuspenseQuery(dietActionsQueryOptions())
   return <>
-    <h1>All Diet Actions</h1>
-    {dietActions.map(action => (
-      <p>{action.mealName}</p>
-    ))}
+    <div className="container-narrow">
+      <h1>All Diet Actions</h1>
+      {dietActions.map(action => (
+        <DietActionFeedItem key={action.id} dietAction={action} />
+      ))}
+    </div>
   </>
 }
