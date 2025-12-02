@@ -2,16 +2,25 @@ import axios from "axios";
 import { getStoredAccessToken, setStoredAccessToken } from "./authToken";
 import { refreshAccessToken } from "@/api/auth";
 
+// Prod
+// const api = axios.create({
+//     baseURL: `${import.meta.env.VITE_PRODUCTION_API_URL}/api`,
+//     withCredentials: true,
+//     headers: {
+//         'Content-Type': 'application/json',
+//         'Access-Control-Allow-Origin': import.meta.env.VITE_PRODUCTION_API_URL
+//     }
+// });
+
+// Dev
+
 const api = axios.create({
-    baseURL: `${import.meta.env.VITE_PRODUCTION_API_URL}/api`,
-    // baseURL: `${import.meta.env.VITE_API_URL}/api`,
+    baseURL: '/api',
     withCredentials: true,
     headers: {
         'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': import.meta.env.VITE_PRODUCTION_API_URL
-        // 'Access-Control-Allow-Origin': import.meta.env.VITE_API_URL
     }
-});
+})
 
 // Attach access token on refresh
 api.interceptors.request.use((config) => {
