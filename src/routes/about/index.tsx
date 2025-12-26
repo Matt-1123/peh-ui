@@ -9,13 +9,22 @@ function AboutComponent() {
     <h1>About Project Earth Health</h1>
     <hr />
     <p className="my-1">
-      Project Earth Health is a platform where users can learn about and log environmentally friendly actions. Currently you can log cleanup and diet actions, and future updates will add plastic swaps, travel, and custom actions, likely among others.
+      Project Earth Health is a platform where users can learn about and log environmentally friendly actions. Currently you can log cleanup and diet actions (work in progress), and future updates will add plastic swaps, travel, and custom actions, likely among others.
     </p>
     <p className='mb-1'>
       This app focuses on individual and small-scale actions. The goal is to help users learn news ways they can make a positive impact in their day to day actions, make consistent and lasting changes to their lifestyles, and inspire others to do the same.</p>
     <p className='mb-1'>
       Climate change is a complex and multi-faceted problem, and individual action can feel miniscule. However, a change in mindset and small collective changes can make positive changes, from environmental to psychological. 
     </p>
+
+    <h2 id='upcoming-changes'>Upcoming Changes</h2>
+    <hr />
+    <ul className="bullet-ul mb-1 mt-1">
+      <li>Diet actions</li>
+      <li>Plastic Swap actions</li>
+      <li>Custom avatar creation</li>
+    </ul>
+
     <h2>Attributions</h2>
     <hr />
     <h3 className="mt-1">Leaf icon images:</h3>

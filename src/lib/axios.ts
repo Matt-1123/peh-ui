@@ -3,24 +3,23 @@ import { getStoredAccessToken, setStoredAccessToken } from "./authToken";
 import { refreshAccessToken } from "@/api/auth";
 
 // Prod
-// const api = axios.create({
-//     baseURL: `${import.meta.env.VITE_PRODUCTION_API_URL}/api`,
-//     withCredentials: true,
-//     headers: {
-//         'Content-Type': 'application/json',
-//         'Access-Control-Allow-Origin': import.meta.env.VITE_PRODUCTION_API_URL
-//     }
-// });
-
-// Dev
-
 const api = axios.create({
-    baseURL: '/api',
+    baseURL: `${import.meta.env.VITE_PRODUCTION_API_URL}/api`,
     withCredentials: true,
     headers: {
         'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': import.meta.env.VITE_PRODUCTION_API_URL
     }
-})
+});
+
+// Dev
+// const api = axios.create({
+//     baseURL: '/api',
+//     withCredentials: true,
+//     headers: {
+//         'Content-Type': 'application/json',
+//     }
+// })
 
 // Attach access token on refresh
 api.interceptors.request.use((config) => {
