@@ -1,10 +1,11 @@
 // @ts-nocheck
-import '../App.css'
-import { createFileRoute, Link } from '@tanstack/react-router'
-import {queryOptions, useSuspenseQuery} from '@tanstack/react-query'
 import { fetchCleanups } from '@/api/cleanups'
-import dateConverter from '../utils/dateConverter'
+import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
+import { createFileRoute, Link } from '@tanstack/react-router'
+import '../App.css'
 import oakLeaf from '../assets/img/profile-leaf-icons/oak-leaf.png'
+import Spinner from '../components/Spinner'
+import dateConverter from '../utils/dateConverter'
 
 const cleanupsQueryOptions = queryOptions({
   queryKey: ['cleanups', { limit: 3 }],
@@ -15,11 +16,23 @@ export const Route = createFileRoute('/')({
   component: HomePage,
   loader: ({ context }) =>
     context.queryClient.ensureQueryData(cleanupsQueryOptions),
+  // Add pending component for loading state
+  pendingComponent: () => (
+    <div className="container-narrow">
+      <div className="welcome-container container-narrow bg-dark" style={{ textAlign: 'center', marginTop: '0' }}>
+        <h1 style={{ lineHeight: '1.2' }}>Welcome to Project Earth Health!</h1>
+        <p className="mt-1" style={{ fontSize: '1.1rem' }}>Learn about and log environmentally friendly activities</p>
+      </div>
+      <div className="container-narrow bg-dark" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '200px' }}>
+        <Spinner />
+      </div>
+    </div>
+  )
 })
 
 function HomePage() {
   const { data: cleanups } = useSuspenseQuery(cleanupsQueryOptions);
-
+  
   return (
     <>
       <div className="container-narrow">
@@ -33,7 +46,7 @@ function HomePage() {
           
           <ul>
             {cleanups.map(cleanup => (
-              <Link to='/actions/cleanups/$cleanupId' params={{cleanupId: cleanup.id.toString()}}>
+              <Link key={cleanup.id} to='/actions/cleanups/$cleanupId' params={{cleanupId: cleanup.id.toString()}}>
                 <div className='latest-action-item'>
                   <div
                     className="grid mb"
@@ -50,14 +63,12 @@ function HomePage() {
                   </div>
                 </div>
               </Link>
-              
             ))}
           </ul>
           
           <Link to='/actions/cleanups'>
             <div className="btn btn-primary--dark mt-1">View All Cleanups</div>
           </Link>
-          
         </div>
       </div>
     </>
