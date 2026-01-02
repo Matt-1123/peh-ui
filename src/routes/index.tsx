@@ -24,7 +24,10 @@ export const Route = createFileRoute('/')({
         <p className="mt-1" style={{ fontSize: '1.1rem' }}>Learn about and log environmentally friendly activities</p>
       </div>
       <div className="container-narrow bg-dark" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '200px' }}>
-        <Spinner />
+        <h2 className='mb'>Latest Cleanups</h2>
+        <div>
+          <Spinner />
+        </div>
       </div>
     </div>
   )
