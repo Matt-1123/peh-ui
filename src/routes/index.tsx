@@ -23,11 +23,12 @@ export const Route = createFileRoute('/')({
         <h1 style={{ lineHeight: '1.2' }}>Welcome to Project Earth Health!</h1>
         <p className="mt-1" style={{ fontSize: '1.1rem' }}>Learn about and log environmentally friendly activities</p>
       </div>
-      <div className="container-narrow bg-dark" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '200px' }}>
+      <div className="container-narrow bg-dark">
         <h2 className='mb'>Latest Cleanups</h2>
-        <div>
-          <Spinner />
-        </div>
+        <Spinner />
+        <Link to='/actions/cleanups'>
+          <div className="btn btn-primary--dark mt-1">View All Cleanups</div>
+        </Link>
       </div>
     </div>
   )
@@ -43,10 +44,10 @@ function HomePage() {
           <h1 style={{ lineHeight: '1.2' }}>Welcome to Project Earth Health!</h1>
           <p className="mt-1" style={{ fontSize: '1.1rem' }}>Learn about and log environmentally friendly activities</p>
         </div>
-        
+       
         <div className="container-narrow bg-dark">
           <h2 className='mb'>Latest Cleanups</h2>
-          
+         
           <ul>
             {cleanups.map(cleanup => (
               <Link key={cleanup.id} to='/actions/cleanups/$cleanupId' params={{cleanupId: cleanup.id.toString()}}>
@@ -68,7 +69,7 @@ function HomePage() {
               </Link>
             ))}
           </ul>
-          
+         
           <Link to='/actions/cleanups'>
             <div className="btn btn-primary--dark mt-1">View All Cleanups</div>
           </Link>
