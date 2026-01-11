@@ -1,10 +1,10 @@
 // @ts-nocheck
-import { useState } from 'react'
-import { Link, useNavigate } from '@tanstack/react-router';
-import logo from '../assets/logos/logo-project-earth-health.png';
-import { useAuth } from '@/context/AuthContext';
 import { logoutUser } from '@/api/auth';
+import { useAuth } from '@/context/AuthContext';
+import { Link, useNavigate } from '@tanstack/react-router';
+import { useState } from 'react';
 import { FaChevronDown } from "react-icons/fa";
+import logo from '../assets/logos/logo-project-earth-health.png';
 import MobileMenu from './MobileMenu';
 
 const Header = () => {
@@ -43,7 +43,7 @@ const Header = () => {
     <>
       {showNotification &&
         <div style={styles.notificationBar}>
-          <p style={styles.notificationText}>Happy Holidays! <Link to="/about" hash="upcoming-changes" style={{ textDecoration: 'underline', color: '#fff' }}>New updates</Link> coming January 2026. 
+          <p style={styles.notificationText}>Happy New Year! <Link to="/about" hash="upcoming-changes" style={{ textDecoration: 'underline', color: '#fff' }}>Updates</Link> coming soon. 
           </p>
         </div>
       }
