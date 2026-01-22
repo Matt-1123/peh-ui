@@ -43,7 +43,7 @@ const Header = () => {
     <>
       {showNotification &&
         <div style={styles.notificationBar}>
-          <p style={styles.notificationText}>Happy New Year! <Link to="/about" hash="upcoming-changes" style={{ textDecoration: 'underline', color: '#fff' }}>Updates</Link> coming soon. 
+          <p style={styles.notificationText}>New action types coming soon! <Link to="/about" hash="upcoming-changes" style={{ textDecoration: 'underline', color: '#fff' }}>Learn more</Link>
           </p>
         </div>
       }
