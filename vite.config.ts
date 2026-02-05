@@ -1,7 +1,7 @@
-import { defineConfig } from 'vite'
-import viteReact from '@vitejs/plugin-react'
 import { tanstackRouter } from '@tanstack/router-plugin/vite'
+import viteReact from '@vitejs/plugin-react'
 import { resolve } from 'node:path'
+import { defineConfig } from 'vite'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -21,8 +21,7 @@ export default defineConfig({
     proxy: {
       '/api': {
         target: 'http://localhost:8800',
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ''),
+        changeOrigin: true      
       },
     },
   }

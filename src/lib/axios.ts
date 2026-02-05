@@ -1,25 +1,27 @@
+import { refreshAccessToken } from "@/api/auth";
 import axios from "axios";
 import { getStoredAccessToken, setStoredAccessToken } from "./authToken";
-import { refreshAccessToken } from "@/api/auth";
 
-// Prod
+const getBaseURL = () => {
+    switch (import.meta.env.MODE) {
+        case 'development':
+            return '/api';  // Uses proxy from vite.config.js
+        case 'production':
+            return `${import.meta.env.VITE_PRODUCTION_API_URL}/api`;
+        default:
+            return '/api';
+    }
+};
+
+
 const api = axios.create({
-    baseURL: `${import.meta.env.VITE_PRODUCTION_API_URL}/api`,
+    baseURL: getBaseURL(),
     withCredentials: true,
     headers: {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': import.meta.env.VITE_PRODUCTION_API_URL
     }
 });
-
-// Dev
-// const api = axios.create({
-//     baseURL: '/api',
-//     withCredentials: true,
-//     headers: {
-//         'Content-Type': 'application/json',
-//     }
-// })
 
 // Attach access token on refresh
 api.interceptors.request.use((config) => {
