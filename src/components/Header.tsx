@@ -4,6 +4,7 @@ import { useAuth } from '@/context/AuthContext';
 import { Link, useNavigate } from '@tanstack/react-router';
 import { useState } from 'react';
 import { FaChevronDown } from "react-icons/fa";
+import { IoClose } from "react-icons/io5";
 import logo from '../assets/logos/logo-project-earth-health.png';
 import MobileMenu from './MobileMenu';
 
@@ -39,14 +40,13 @@ const Header = () => {
     }
   }
 
+  const handleDismissNotification = () => {
+    setShowNotification(false);
+  }
+
   return (
     <>
-      {showNotification &&
-        <div style={styles.notificationBar}>
-          <p style={styles.notificationText}>New action types coming soon! <Link to="/about" hash="upcoming-changes" style={{ textDecoration: 'underline', color: '#fff' }}>Learn more</Link>
-          </p>
-        </div>
-      }
+      
     
       <header className="bg-primary--dark pt" style={{ position: "relative" }}>
         <div className="container navbar grid-2">
@@ -139,6 +139,20 @@ const Header = () => {
         />
         <span className={`overlay ${openMobileMenu ? 'active' : null}`}></span>
       </header>
+
+      {showNotification && !openMobileMenu &&
+        <div style={styles.notificationBar}>
+          <p style={styles.notificationText}>New action types coming soon! <Link to="/about" hash="upcoming-changes" style={{ textDecoration: 'underline', color: '#fff' }}>Learn more</Link>
+          </p>
+          <button 
+            onClick={handleDismissNotification}
+            style={styles.dismissButton}
+            aria-label="Dismiss notification"
+          >
+            <IoClose size={20} />
+          </button>
+        </div>
+      }
     </>
   );
 };
@@ -146,7 +160,6 @@ const Header = () => {
 const styles = {
   notificationBar: {
     width: '100%',
-    // backgroundColor: '#a5a58d',
     backgroundColor: '#cb997e',
     color: '#fff',
     padding: '12px 20px',
@@ -154,11 +167,28 @@ const styles = {
     position: 'sticky',
     top: 0,
     zIndex: 1000,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   notificationText: {
     margin: 0,
     fontSize: '0.95rem',
     fontWeight: '500',
+  },
+  dismissButton: {
+    position: 'absolute',
+    right: '20px',
+    background: 'transparent',
+    border: 'none',
+    color: '#fff',
+    cursor: 'pointer',
+    padding: '4px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    opacity: 0.8,
+    transition: 'opacity 0.2s',
   },
 }
 
