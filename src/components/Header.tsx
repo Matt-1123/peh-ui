@@ -16,7 +16,7 @@ const Header = () => {
   const [showNotification, setShowNotification] = useState(true)
   const [openSubmenu, setOpenSubmenu] = useState(false);
   const [openMobileMenu, setOpenMobileMenu] = useState(false)
-
+  
   const handleMouseEnter = () => {
     setOpenSubmenu(true);
   }
@@ -142,7 +142,9 @@ const Header = () => {
 
       {showNotification && !openMobileMenu &&
         <div style={styles.notificationBar}>
-          <p style={styles.notificationText}>New action types coming soon! <Link to="/about" hash="upcoming-changes" style={{ textDecoration: 'underline', color: '#fff' }}>Learn more</Link>
+          {/* <p style={styles.notificationText}>New action types coming soon! <Link to="/about" hash="upcoming-changes" style={{ textDecoration: 'underline', color: '#fff' }}>Learn more</Link>
+          </p> */}
+          <p style={styles.notificationText}>An authentication error is currently being fixed. You may unexpectedly be logged out of your account in the neantime.
           </p>
           <button 
             onClick={handleDismissNotification}
@@ -162,7 +164,7 @@ const styles = {
     width: '100%',
     backgroundColor: '#cb997e',
     color: '#fff',
-    padding: '12px 20px',
+    padding: '10px 10%',
     textAlign: 'center',
     position: 'sticky',
     top: 0,
